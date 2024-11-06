@@ -75,7 +75,17 @@ class NewAccount(BankAccount):
                 print(f"Invalid data: {e}. Please try again")
                 condition = False
             condition = True
+            self.name = name
+            self.surname = surname
             break
+        print(f"{self.name} {self.surname}")
+        account_number = int(SHEET.worksheet('user_details').col_values(5)[-1]) + 1
+        super().__init__(name, surname, pin_code, id_number, account_number, balance=0)
+        self.add_new_account()
+    
+    def add_new_account(self):
+        new_account_data = [self.name, self.surname, self.pin_code, self.id_number, self.account_number, self.balance]
+        SHEET.worksheet("user_details").append_row(new_account_data)
         
                 
 
@@ -132,6 +142,8 @@ def account_validation(personal_ID, pin_code):
         response = input().strip().lower()
         if response == "yes":
             NewAccount(pin_code, personal_ID)
+            
+
         else:
             print("Exit app")
 
