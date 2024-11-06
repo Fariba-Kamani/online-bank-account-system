@@ -53,9 +53,33 @@ class BankAccount:
             self.balance -= amount
             self.transactions.append("Withdrawal", amount)
 
+class NewAccount(BankAccount):
+    """
+    
+    """
+    def __init__(self, pin_code, id_number ):
+        condition = True
+        while condition:
+            name = input("Please enter your first name here:").strip().capitalize()
+            surname = input("Please enter your surname here:").strip().capitalize()
+            try:
+                if name == "" or surname == "":
+                    raise ValueError(
+                        "Name or surname is missing. Required data"
+                    )
+                elif not name.isalpha() or not surname.isalpha():
+                    raise ValueError(
+                        "Name and surname should contain only letters"
+                    )
+            except ValueError as e:
+                print(f"Invalid data: {e}. Please try again")
+                condition = False
+            condition = True
+            break
         
+                
 
-def login_validation():
+def get_login_inputs():
     """
     Checks if the user has entered exactly 10 digits for personal ID number,
     and exactly 6 digits for the PIN code.
@@ -69,9 +93,16 @@ def login_validation():
     print(" -Personal ID number should be 10 digits. Example: 8909091234, format: YYMMDD****")
     print(" -PIN code should be exactly 6 digits. Example: 123456")
     print("______________________________________________________")
-    personal_ID = input("Enter your personal ID number here, 10 digits:\n")
-    pin_code = input("Enter your PIN code here, 6 digits:\n")
-    print()
+    while True:
+        personal_ID = input("Enter your personal ID number here, 10 digits:\n")
+        pin_code = input("Enter your PIN code here, 6 digits:\n")
+        print()
+        if login_validation(personal_ID, pin_code):
+            print("Valid inputs")
+            break
+    account_validation(personal_ID, pin_code)
+
+def login_validation(personal_ID, pin_code):
     try:
         if not personal_ID.isdigit() or not pin_code.isdigit():
             raise ValueError(
@@ -83,19 +114,29 @@ def login_validation():
             )
     except ValueError as e:
         print(f"Invalid data: {e} Please try again.\n")
-    
+        return False
+    return True
+
+def account_validation(personal_ID, pin_code):  
     user_details = SHEET.worksheet('user_details')
-    cell = user_details.find(personal_ID)
-    data = user_details.row_values(cell.row)
-    if cell and data[2] == pin_code:
-        costumer = BankAccount(data[0], data[1], data[2], data[3], data[4], data[5] )
-        print(costumer.check_balance())
-    elif not cell:
-        print("account doesn't exist")
-    elif data[cell.row - 1][2] != pin_code:
-        print("Wrong PIN code.")
+    try:
+        cell = user_details.find(personal_ID)
+        data = user_details.row_values(cell.row)
+        if data[2] == pin_code:
+            costumer = BankAccount(data[0], data[1], data[2], data[3], data[4], float(data[5]) )
+            costumer.check_balance()
+        else:
+            print("Wrong PIN code.")   
+    except:
+        print("Account doesn't exist. Would you like to create a new account? (yes/no)")
+        response = input().strip().lower()
+        if response == "yes":
+            NewAccount(pin_code, personal_ID)
+        else:
+            print("Exit app")
+
         
 
 
 
-login_validation()
+get_login_inputs()
