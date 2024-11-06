@@ -17,10 +17,14 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Bank_account')
-"""
+
 class BankAccount:
+    """
+    Bank account class
+    """
    
     def __init__(self, first_name, surname, pin_code, id_number, account_number, balance=0):
+        # Creates an instance of bank account
         self.first_name = first_name
         self.surname = surname
         self.pin_code = pin_code
@@ -29,6 +33,15 @@ class BankAccount:
         self.balance = balance
         self.transactions = []
 
+    def check_balance(self):
+        print(f"Account number: {self.account_number}")
+        print(f"Welcome to your account {self.first_name} {self.surname}!")
+        print(f"Your balance is {self.balance} sek.\n") 
+        print("For deposit, press 1")
+        print("For Withdrawal, press 2")
+        print("To check your transactions history, press 3")
+        print("To log out, press 4\n")   
+
     def deposit(self, amount):
         if amount > 0:
             self.balance += amount
@@ -36,7 +49,10 @@ class BankAccount:
 
 
     def withdra(self, amount):
-"""
+        if amount > 0 and amount <= self.balance:
+            self.balance -= amount
+            self.transactions.append("Withdrawal", amount)
+
         
 
 def login_validation():
@@ -55,6 +71,7 @@ def login_validation():
     print("______________________________________________________")
     personal_ID = input("Enter your personal ID number here, 10 digits:\n")
     pin_code = input("Enter your PIN code here, 6 digits:\n")
+    print()
     try:
         if not personal_ID.isdigit() or not pin_code.isdigit():
             raise ValueError(
@@ -71,8 +88,8 @@ def login_validation():
     cell = user_details.find(personal_ID)
     data = user_details.row_values(cell.row)
     if cell and data[2] == pin_code:
-        print(f"Welcome to your account {data[0]} {data[1]}! ")
-        print(f"Account number: {data[4]}\nBalance: {data[5]}\n")
+        costumer = BankAccount(data[0], data[1], data[2], data[3], data[4], data[5] )
+        print(costumer.check_balance())
     elif not cell:
         print("account doesn't exist")
     elif data[cell.row - 1][2] != pin_code:
