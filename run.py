@@ -35,11 +35,12 @@ class BankAccount:
     
     def welcome_message(self):
         print(f"Welcome to your account {self.first_name} {self.surname}!")
-        print(f"Account number: {self.account_number}")
-        print("For the menu press 1\nTo log out press 2")
+        print(f"Account number: {self.account_number}\n")
+        print("For menu press 1, to log out press 2")
         condition = True
         while condition:
             response = input()
+            print()
             if response == "1":
                 self.show_menu()
                 condition = False
@@ -50,9 +51,7 @@ class BankAccount:
                 print("Invalid response! Please answer only 1 for menu or 2 to log out.")
 
     def show_menu(self):
-        print(f"Welcome to your account {self.first_name} {self.surname}!")
-        print(f"Account number: {self.account_number}")
-        print("For deposit, press 1, for Withdrawal, press 2, for transactions history, press 3, To log out, press 4\n")
+        print("Deposit: press 1, Withdrawal: press 2, Transactions history: press 3, Log out: press 4\n")
 
     def check_balance(self):
         print(f"Your balance is {self.balance} sek.\n") 
@@ -131,7 +130,6 @@ def get_login_inputs():
         pin_code = input("Enter your PIN code here, 6 digits:\n")
         print()
         if login_validation(personal_ID, pin_code):
-            print("Valid inputs")
             break
     account_validation(personal_ID, pin_code)
 
@@ -154,9 +152,7 @@ def account_validation(personal_ID, pin_code):
     user_details = SHEET.worksheet('user_details')
     try:
         cell = user_details.find(personal_ID)
-        print("cell")
         data = user_details.row_values(cell.row)
-        print(f"data: {data}")
         if data[2] == pin_code:
             costumer = BankAccount(data[0], data[1], data[2], data[3], data[4], float(data[5]) )
             costumer.welcome_message()
