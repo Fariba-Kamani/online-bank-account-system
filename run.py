@@ -38,6 +38,9 @@ class BankAccount:
     def welcome_message(self):
         print(f"Welcome to your account {self.first_name} {self.surname}!")
         print(f"Account number: {self.account_number}\n")
+        self.navigation()
+    
+    def navigation(self):
         print("For menu press 1, to log out press 2")
         condition = True
         while condition:
@@ -47,7 +50,7 @@ class BankAccount:
                 self.show_menu()
                 condition = False
             elif response == "2":
-                print("EXIT")
+                self.log_out()
                 condition = False
             else:
                 print("Invalid response! Please answer only 1 for menu or 2 to log out.")
@@ -65,13 +68,15 @@ class BankAccount:
         elif menu_response == "4":
             self.transactions_history()
         elif menu_response == "5":
-            print("Exit")
+            self.log_out()
+            # Stop further execution of the menu after logging out.
+            return
         else:
             print("Invalid value! Please choose a value from the menu.")
             self.show_menu()
 
     def check_balance(self):
-        print(f"Your balance is {self.balance} sek.\n") 
+        print(f"Your balance is {self.balance:.2f} sek.\n") 
         self.show_menu()  
 
     def deposit(self):
@@ -90,6 +95,7 @@ class BankAccount:
         except ValueError:
             print("Invalid input, please enter a valid number.")
             self.deposit()
+        self.show_menu()
 
     def withdra(self):
         try:
@@ -110,6 +116,7 @@ class BankAccount:
         except ValueError:
             print("Invalid input, please enter a valid number.")
             self.withdra()
+        self.show_menu()
     
     def update_transactions(self):
         transactions = self.transactions[0]
@@ -121,21 +128,18 @@ class BankAccount:
     
     def transactions_history(self):
         transactions_worksheet = SHEET.worksheet("transactions")
-        matching_cells = transactions_worksheet.findall(self.account_number)
+        matched_cells = transactions_worksheet.findall(self.account_number)
         transactions_history_list = []
-        for cell in matching_cells:
+        for cell in matched_cells:
             data = transactions_worksheet.row_values(cell.row)
             transactions_history_list.append([data[1], data[2], data[3]])
         print("Your transaction history is as follows:")
-        print("transaction type    amount(sek)    date & time ")
-        for transaction_list in transactions_history_list:
-            print(f"{transaction_list[0]}    {transaction_list[1]}    {transaction_list[2]}\n")
+        headers = ["transaction type", "amount(sek)", "date & time"]
+        print(tabulate(transactions_history_list, headers=headers, tablefmt="grid"))
+        self.show_menu()
 
-
-
-
-
-
+    def log_out(self):
+        print("Thanks for using your online bank account service.\nLooking forward to seeing you soon.")
 
 class NewAccount(BankAccount):
     """
@@ -174,11 +178,7 @@ class NewAccount(BankAccount):
 
     def confirmation_new_account(self):
         print(f"Congratulations! A new account has been successfully created.\n{self.name} {self.surname}\npersonal ID number: {self.id_number}\naccount number: {self.account_number}\nPIN code: {self.pin_code}\nInitial balance amount: {self.balance} sek")
-        print("Please login with your personal ID number and PIN code to access your account.")
-        
-
-        
-                
+        print("Please login with your personal ID number and PIN code to access your account.")              
 
 def get_login_inputs():
     """
@@ -228,15 +228,17 @@ def account_validation(personal_ID, pin_code):
             costumer.welcome_message()
         else:
             print("Wrong PIN code.")   
-    except gspread.exceptions.CellNotFound:
-        print("Account doesn't exist. Would you like to create a new account? (yes/no)")
-        response = input().strip().lower()
-        if response == "yes":
-            NewAccount(pin_code, personal_ID)
+    except gspread.exceptions.GSpreadException as e:
+        if "not found" in str(e):
+            print("Account doesn't exist. Would you like to create a new account? (yes/no)")
+            response = input().strip().lower()
+            if response == "yes":
+                NewAccount(pin_code, personal_ID)
+            else:
+                temp_account = BankAccount("", "", "", "", "", 0)
+                temp_account.log_out()
         else:
-            print("Exit app")
-    except Exception as e:
-        print(f"An error occurred: {e}")
+            print(f"An unexpected error occurred: {e}")
 
 
 get_login_inputs()
