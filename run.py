@@ -2,6 +2,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from datetime import datetime
+from tabulate import tabulate
 
 """
 Grants permission to view and manage your Google Sheets files.
@@ -62,7 +63,7 @@ class BankAccount:
         elif menu_response == "3":
             self.withdra()
         elif menu_response == "4":
-            print("transactions")
+            self.transactions_history()
         elif menu_response == "5":
             print("Exit")
         else:
@@ -89,7 +90,6 @@ class BankAccount:
         except ValueError:
             print("Invalid input, please enter a valid number.")
             self.deposit()
-
 
     def withdra(self):
         try:
@@ -118,6 +118,20 @@ class BankAccount:
     def update_balance(self):
         SHEET.worksheet("user_details").update_cell(self.row_number, 6, f"{self.balance:.2f}")
         print(f"Transaction successful. Current Balance: {self.balance:.2f} sek")
+    
+    def transactions_history(self):
+        transactions_worksheet = SHEET.worksheet("transactions")
+        matching_cells = transactions_worksheet.findall(self.account_number)
+        transactions_history_list = []
+        for cell in matching_cells:
+            data = transactions_worksheet.row_values(cell.row)
+            transactions_history_list.append([data[1], data[2], data[3]])
+        print("Your transaction history is as follows:")
+        print("transaction type    amount(sek)    date & time ")
+        for transaction_list in transactions_history_list:
+            print(f"{transaction_list[0]}    {transaction_list[1]}    {transaction_list[2]}\n")
+
+
 
 
 
