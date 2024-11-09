@@ -56,8 +56,10 @@ class BankAccount:
                 print("Invalid response! Please answer only 1 for menu or 2 to log out.")
 
     def show_menu(self):
-        print("Check balance: press 1, Deposit: press 2, Withdrawal: press 3, Transactions history: press 4, Log out: press 5")
-        menu_response = input()
+        menu_options = [["Press 1", "Press 2", "Press 3", "Press 4", "Press 5"]]
+        headers = ["Check balance", "Deposit", "Withdrawal", "Transactions history", "Log out"]
+        print(tabulate(menu_options, headers=headers, tablefmt="grid"))
+        menu_response = input("Select a number from the menu above (1-5):")
         print()
         if menu_response == "1":
             self.check_balance()
@@ -119,12 +121,13 @@ class BankAccount:
         self.show_menu()
     
     def update_transactions(self):
-        transactions = self.transactions[0]
-        SHEET.worksheet("transactions").append_row(transactions)
+        last_transaction = self.transactions[-1]
+        SHEET.worksheet("transactions").append_row(last_transaction)
     
     def update_balance(self):
         SHEET.worksheet("user_details").update_cell(self.row_number, 6, f"{self.balance:.2f}")
         print(f"Transaction successful. Current Balance: {self.balance:.2f} sek")
+        print()
     
     def transactions_history(self):
         transactions_worksheet = SHEET.worksheet("transactions")
