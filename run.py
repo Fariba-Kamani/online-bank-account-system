@@ -38,22 +38,7 @@ class BankAccount:
     def welcome_message(self):
         print(f"Welcome to your account {self.first_name} {self.surname}!")
         print(f"Account number: {self.account_number}\n")
-        self.navigation()
-    
-    def navigation(self):
-        print("For menu press 1, to log out press 2")
-        condition = True
-        while condition:
-            response = input()
-            print()
-            if response == "1":
-                self.show_menu()
-                condition = False
-            elif response == "2":
-                self.log_out()
-                condition = False
-            else:
-                print("Invalid response! Please answer only 1 for menu or 2 to log out.")
+        self.show_menu()
 
     def show_menu(self):
         menu_options = [["Press 1", "Press 2", "Press 3", "Press 4", "Press 5"]]
@@ -90,7 +75,7 @@ class BankAccount:
                 time = datetime.now().strftime("%Y-%m-%d %H:%M")
                 self.transactions.append([int(self.account_number), "Deposit", round(amount, 2), time])
                 self.update_transactions()
-                self.update_balance()
+                self.update_balance("Deposit")
             else:
                 print("Please enter an amount greater than 0 sek.")
                 self.deposit()
@@ -108,7 +93,7 @@ class BankAccount:
                 time = datetime.now().strftime("%Y-%m-%d %H:%M")
                 self.transactions.append([int(self.account_number), "Withdrawal", round(amount,2), time])
                 self.update_transactions()
-                self.update_balance()
+                self.update_balance("Withdrawal")
             elif amount < 0:
                 print("Please enter an amount greater than 0 sek.")
                 self.withdra()
@@ -124,14 +109,18 @@ class BankAccount:
         last_transaction = self.transactions[-1]
         SHEET.worksheet("transactions").append_row(last_transaction)
     
-    def update_balance(self):
+    def update_balance(self, transaction_type):
         SHEET.worksheet("user_details").update_cell(self.row_number, 6, f"{self.balance:.2f}")
-        print(f"Transaction successful. Current Balance: {self.balance:.2f} sek")
+        print(f"{transaction_type} successful. Current Balance: {self.balance:.2f} sek")
         print()
     
     def transactions_history(self):
         transactions_worksheet = SHEET.worksheet("transactions")
         matched_cells = transactions_worksheet.findall(self.account_number)
+        if not matched_cells:
+            print(f"No transactions found for account {self.account_number}.\n")
+            self.show_menu()
+            return
         transactions_history_list = []
         for cell in matched_cells:
             data = transactions_worksheet.row_values(cell.row)
