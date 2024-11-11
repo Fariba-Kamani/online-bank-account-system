@@ -201,7 +201,8 @@ class NewAccount(BankAccount):
             self.surname = surname
             break
         account_number = int(SHEET.worksheet('user_details').col_values(5)[-1]) + 1
-        super().__init__(name, surname, pin_code, id_number, account_number, balance=0)
+        row_number = len(SHEET.worksheet('user_details').get_all_values()) + 1
+        super().__init__(name, surname, pin_code, int(id_number), account_number, row_number, balance=0)
         self.add_new_account()
         self.confirmation_new_account()
     
