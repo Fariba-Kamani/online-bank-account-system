@@ -254,6 +254,15 @@ def account_validation(personal_ID, pin_code):
     user_details = SHEET.worksheet('user_details')
     try:
         cell = user_details.find(personal_ID)
+        if cell is None:
+            print("Account doesn't exist. Would you like to create a new account? (yes/no)")
+            response = input().strip().lower()
+            if response == "yes":
+                NewAccount(pin_code, personal_ID)
+            else:
+                temp_account = BankAccount("", "", "", "", "", 0)
+                temp_account.log_out()
+            return
         data = user_details.row_values(cell.row)
         row_number = cell.row
         if data[2] == pin_code:
@@ -265,16 +274,7 @@ def account_validation(personal_ID, pin_code):
             print()
             account_validation(personal_ID, pin_code)   
     except gspread.exceptions.GSpreadException as e:
-        if "not found" in str(e):
-            print("Account doesn't exist. Would you like to create a new account? (yes/no)")
-            response = input().strip().lower()
-            if response == "yes":
-                NewAccount(pin_code, personal_ID)
-            else:
-                temp_account = BankAccount("", "", "", "", "", 0)
-                temp_account.log_out()
-        else:
-            print(f"An unexpected error occurred: {e}")
+        print(f"An unexpected error occurred: {e}")
 
 
 get_login_inputs()
