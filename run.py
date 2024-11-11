@@ -41,32 +41,32 @@ class BankAccount:
         self.show_menu()
 
     def show_menu(self):
-        menu_options = [["Press 1", "Press 2", "Press 3", "Press 4", "Press 5, press 6"]]
-        headers = ["Check balance", "Deposit", "Withdrawal", "Transfer", "Transactions history", "Log out"]
-        print(tabulate(menu_options, headers=headers, tablefmt="grid"))
-        menu_response = input("Select a number from the menu above (1-6):")
-        print()
-        if menu_response == "1":
-            self.check_balance()
-        elif menu_response == "2":
-            self.deposit()
-        elif menu_response == "3":
-            self.withdra()
-        elif menu_response == "4":
-            self.transfer()
-        elif menu_response == "5":
-            self.transactions_history()
-        elif menu_response == "6":
-            self.log_out()
-            # Stop further execution of the menu after logging out.
-            return
-        else:
-            print("Invalid value! Please choose a value from the menu.")
-            self.show_menu()
+        while True:
+            menu_options = [["Press 1", "Press 2", "Press 3", "Press 4", "Press 5", "press 6"]]
+            headers = ["Check balance", "Deposit", "Withdrawal", "Transfer", "Transactions history", "Log out"]
+            print(tabulate(menu_options, headers=headers, tablefmt="grid"))
+            menu_response = input("Select a number from the menu above (1-6):")
+            print()
+            if menu_response == "1":
+                self.check_balance()
+            elif menu_response == "2":
+                self.deposit()
+            elif menu_response == "3":
+                self.withdra()
+            elif menu_response == "4":
+                self.transfer()
+            elif menu_response == "5":
+                self.transactions_history()
+            elif menu_response == "6":
+                self.log_out()
+                # Stop further execution of the menu after logging out.
+                break
+            else:
+                print("Invalid value! Please choose a value from the menu.")
 
     def check_balance(self):
         print(f"Your balance is {self.balance:.2f} sek.\n") 
-        self.show_menu()  
+        #self.show_menu()  
 
     def deposit(self):
         try:
@@ -79,12 +79,12 @@ class BankAccount:
                 self.update_transactions()
                 self.update_balance("Deposit")
             else:
-                print("Please enter an amount greater than 0 sek.")
+                print("The amount should be greater than 0 sek.")
                 self.deposit()
         except ValueError:
             print("Invalid input, please enter a valid number.")
             self.deposit()
-        self.show_menu()
+        #self.show_menu()
 
     def withdra(self):
         try:
@@ -105,7 +105,7 @@ class BankAccount:
         except ValueError:
             print("Invalid input, please enter a valid number.")
             self.withdra()
-        self.show_menu()
+        #self.show_menu()
     
     def update_transactions(self):
         last_transaction = self.transactions[-1]
@@ -121,7 +121,7 @@ class BankAccount:
         matched_cells = transactions_worksheet.findall(self.account_number)
         if not matched_cells:
             print(f"No transactions found for account {self.account_number}.\n")
-            self.show_menu()
+            #self.show_menu()
             return
         transactions_history_list = []
         for cell in matched_cells:
@@ -130,46 +130,57 @@ class BankAccount:
         print("Your transaction history is as follows:")
         headers = ["transaction type", "amount(sek)", "date & time"]
         print(tabulate(transactions_history_list, headers=headers, tablefmt="grid"))
-        self.show_menu()
+        #self.show_menu()
     
     def transfer(self):
-        transfer_account = input("Please enter the account number you want to transfer balance to:")
-        worksheet = SHEET.worksheet("user_details")
-        matched_cell = worksheet.find(transfer_account)
-        if not matched_cell:
-            print("This account doesn't exist. To try again press 1, to go back to menu press 2.\n")
-            response = input("Please enter your selection (1-2):")
-            if response == "1":
-                self.transfer()
-            elif response == "2":
-                self.show_menu()
-                return
+        condition = True
+        while condition:
+            transfer_account = input("Please enter the account number you want to transfer balance to:")
+            worksheet = SHEET.worksheet("user_details")
+            matched_cell = worksheet.find(transfer_account)
+            if not matched_cell:
+                print("This account doesn't exist. To try again press 1, to go back to menu press 2.")
+                response = input("Please enter your selection (1-2):").strip()
+                if response == "1":
+                    self.transfer()     
+                elif response == "2":
+                    self.show_menu()
+                    return
+                else:
+                    print("Invalid selection. To try again press 1, to go back to menu press 2.")
+                    response = input("Please enter your selection (1-2):").strip()
             else:
-                print("Invalid selection.")
-                response = input("Please enter your selection (1-2):")
+                break
+        condition = False
+
+        # Proceed with transfer operation if valid account
         target_data = worksheet.row_values(matched_cell.row)
         target_account = BankAccount(target_data[0], target_data[1], target_data[2], target_data[3], target_data[4], matched_cell.row, float(target_data[5]))
-        try:
-            transfer_amount = float(input("Please enter the amount you want to transfer:"))
-            if transfer_amount > 0 and transfer_amount <= self.balance:
-                self.balance -= round(transfer_amount, 2)
-                time = datetime.now().strftime("%Y-%m-%d %H:%M")
-                self.transactions.append([int(self.account_number), "Transfer out", round(transfer_amount,2), time, int(target_account.account_number)])
-                self.update_transactions()
-                self.update_balance("Transfer out")
-                target_account.balance += round(transfer_amount, 2)
-                target_account.transactions.append([int(target_account.account_number), "Transfer in", round(transfer_amount,2), time, int(self.account_number)])
-                target_account.update_transactions()
-                target_account.update_balance("Transfer in")
-                
-            elif transfer_amount < 0:
-                print("Please enter an amount greater than 0 sek.")
-                
-            else:
-                print("Not enough bank account balance for this request. Please enter a valid value.")
-                
-        except ValueError:
-            print("Invalid input, please enter a valid number.")       
+        # Loop for validating transfer amount
+        while True:
+            try:
+                transfer_amount = float(input("Please enter the amount you want to transfer:"))
+                if transfer_amount <= 0:
+                    print("Amount must be greater than 0. Please try again.")
+                elif transfer_amount > self.balance:
+                    print("Not enough balance for this transfer. Please enter a lower amount.")
+                else:
+                    # Valid amount, exit loop
+                    break
+            except ValueError:
+                print("Invalid input, please enter a valid number.")
+        # Proceed with the transfer if the amount is valid
+        self.balance -= round(transfer_amount, 2)
+        time = datetime.now().strftime("%Y-%m-%d %H:%M")
+        # Update sender's transactions
+        self.transactions.append([int(self.account_number), "Transfer out", round(transfer_amount,2), time, int(target_account.account_number)])
+        self.update_transactions()
+        self.update_balance("Transfer out")
+        # Update recipient's transactions
+        target_account.balance += round(transfer_amount, 2)
+        target_account.transactions.append([int(target_account.account_number), "Transfer in", round(transfer_amount,2), time, int(self.account_number)])
+        target_account.update_transactions()
+        target_account.update_balance("Transfer in")       
 
     def log_out(self):
         print("Thanks for using your online bank account service.\nLooking forward to seeing you soon.")
