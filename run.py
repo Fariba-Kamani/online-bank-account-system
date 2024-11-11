@@ -260,7 +260,10 @@ def account_validation(personal_ID, pin_code):
             costumer = BankAccount(data[0], data[1], data[2], data[3], data[4], row_number, float(data[5]))
             costumer.welcome_message()
         else:
-            print("Wrong PIN code.")   
+            print("Wrong PIN code.")
+            pin_code = input("Please enter your PIN code:\n")
+            print()
+            account_validation(personal_ID, pin_code)   
     except gspread.exceptions.GSpreadException as e:
         if "not found" in str(e):
             print("Account doesn't exist. Would you like to create a new account? (yes/no)")
