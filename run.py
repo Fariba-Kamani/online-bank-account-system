@@ -118,7 +118,7 @@ class BankAccount:
     
     def transactions_history(self):
         transactions_worksheet = SHEET.worksheet("transactions")
-        matched_cells = transactions_worksheet.findall(self.account_number)
+        matched_cells = [cell for cell in transactions_worksheet.findall(self.account_number) if cell.col == 1]
         if not matched_cells:
             print(f"No transactions found for account {self.account_number}.\n")
             #self.show_menu()
@@ -126,11 +126,12 @@ class BankAccount:
         transactions_history_list = []
         for cell in matched_cells:
             data = transactions_worksheet.row_values(cell.row)
-            transactions_history_list.append([data[1], data[2], data[3]])
+            transactions_history_list.append([data[1], data[2], data[3], data[4]])
         print("Your transaction history is as follows:")
-        headers = ["transaction type", "amount(sek)", "date & time"]
+        headers = ["transaction type", "amount(sek)", "date & time", "Destination account number"]
         print(tabulate(transactions_history_list, headers=headers, tablefmt="grid"))
-        #self.show_menu()
+        
+
     
     def transfer(self):
         condition = True
