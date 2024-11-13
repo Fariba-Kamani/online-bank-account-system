@@ -138,14 +138,14 @@ class BankAccount:
     def transfer_validation(self):
         user_details = SHEET.worksheet("user_details")
         while True:
-            transfer_account = input("Please enter the account number you want to transfer balance to:")
+            transfer_account = input("Please enter the account number you want to transfer balance to:\n")
             if transfer_account == self.account_number:
                 print("You cannot transfer money to your own account. Please enter a different account number.")
                 continue
             matched_cell = user_details.find(transfer_account)    
             if not matched_cell:
                 print("This account doesn't exist. To try again press 1, to go back to menu press 2.")
-                response = input("Please enter your selection (1-2):").strip()
+                response = input("Please enter your selection (1-2):\n").strip()
                 if response == "1":
                     continue     
                 elif response == "2":
@@ -160,7 +160,7 @@ class BankAccount:
         # Loop for validating transfer amount
         while True:
             try:
-                transfer_amount = float(input("Please enter the amount you want to transfer:"))
+                transfer_amount = float(input("Please enter the amount you want to transfer:\n"))
                 if transfer_amount <= 0:
                     print("Amount must be greater than 0. Please try again.")
                 elif transfer_amount > self.balance:
@@ -210,8 +210,8 @@ class NewAccount(BankAccount):
     
     def __init__(self, pin_code, id_number ):
         while True:
-            name = input("Please enter your first name here:").strip().capitalize()
-            surname = input("Please enter your surname here:").strip().capitalize()
+            name = input("Please enter your first name here:\n").strip().capitalize()
+            surname = input("Please enter your surname here:\n").strip().capitalize()
             print()
             if not name or not surname:
                 print("Invalid data: Name or surname is missing. Required data. Please try again.")
@@ -283,8 +283,8 @@ def account_validation(personal_ID, pin_code):
         if cell is None:
             while True:
                 try:
-                    print("Account doesn't exist. Would you like to create a new account? (yes/no)")
-                    response = input().strip().lower()
+                    print("Account doesn't exist. Would you like to create a new account?")
+                    response = input("(yes/no)\n").strip().lower()
                     if response == "yes":
                         NewAccount(pin_code, personal_ID)
                         return
