@@ -42,9 +42,9 @@ class BankAccount:
 
     def show_menu(self):
         while True:
-            menu_options = [["Press 1", "Press 2", "Press 3", "Press 4", "Press 5", "press 6"]]
-            headers = ["Check balance", "Deposit", "Withdrawal", "Transfer", "Transactions history", "Log out"]
-            print(tabulate(menu_options, headers=headers, tablefmt="grid"))
+            menu_options = [[1, "Check balance"], [2, "Deposit"], [3, "Withdrawal"], [4, "Transfer"], [5, "Transactions history"], [6, "Log out"]]
+            headers = ["Press", "Action"]
+            print(tabulate(menu_options, headers=headers, tablefmt="pretty"))
             menu_response = input("Select a number from the menu above (1-6):").strip()
             print()
             if menu_response == "1":
@@ -132,8 +132,8 @@ class BankAccount:
             data = transactions_worksheet.row_values(cell.row)
             transactions_history_list.append([data[1], data[2], data[3], data[4]])
         print("Your transaction history is as follows:")
-        headers = ["transaction type", "amount(sek)", "date & time", "Destination account number"]
-        print(tabulate(transactions_history_list, headers=headers, tablefmt="grid"))
+        headers = ["Type", "Amount(sek)", "Date & Time", "Destination account"]
+        print(tabulate(transactions_history_list, headers=headers, tablefmt="pretty", maxcolwidths= [11, 11, 15, 6]))
     
     def transfer_validation(self):
         user_details = SHEET.worksheet("user_details")
@@ -189,14 +189,14 @@ class BankAccount:
         self.balance -= round(transfer_amount, 2)
         time = datetime.now().strftime("%Y-%m-%d %H:%M")
         # Update sender's transactions
-        self.transactions.append([int(self.account_number), "Transfer out", round(transfer_amount,2), time, int(target_account.account_number)])
+        self.transactions.append([int(self.account_number), "Transfered", round(transfer_amount,2), time, int(target_account.account_number)])
         self.update_transactions()
         self.update_balance()
         print(f"Transfer was successful. Current Balance: {self.balance:.2f} sek")
         print()
         # Update recipient's transactions
         target_account.balance += round(transfer_amount, 2)
-        target_account.transactions.append([int(target_account.account_number), "Transfer in", round(transfer_amount,2), time, int(self.account_number)])
+        target_account.transactions.append([int(target_account.account_number), "Receive", round(transfer_amount,2), time, int(self.account_number)])
         target_account.update_transactions()
         target_account.update_balance()       
 
