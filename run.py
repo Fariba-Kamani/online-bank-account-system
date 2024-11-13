@@ -207,25 +207,21 @@ class NewAccount(BankAccount):
     """
     Creates a new account for a user if they don’t already have one.
     """
+    
     def __init__(self, pin_code, id_number ):
-        condition = True
-        while condition:
+        while True:
             name = input("Please enter your first name here:").strip().capitalize()
             surname = input("Please enter your surname here:").strip().capitalize()
             print()
-            try:
-                if name == "" or surname == "":
-                    raise ValueError(
-                        "Name or surname is missing. Required data"
-                    )
-                elif not name.isalpha() or not surname.isalpha():
-                    raise ValueError(
-                        "Name and surname should contain only letters"
-                    )
-            except ValueError as e:
-                print(f"Invalid data: {e}. Please try again")
-                condition = False
-            condition = True
+            if not name or not surname:
+                print("Invalid data: Name or surname is missing. Required data. Please try again.")
+                continue    
+            elif not name.isalpha() or not surname.isalpha():
+                print("Invalid data: Name and surname should contain only letters. Please try again.")
+                continue
+            elif len(name) < 2 or len(surname) < 2:
+                print("Invalid data: Name and surname must each be at least 2 characters long. Please try again.")
+                continue
             self.name = name
             self.surname = surname
             break
@@ -285,26 +281,35 @@ def account_validation(personal_ID, pin_code):
     try:
         cell = user_details.find(personal_ID)
         if cell is None:
-            print("Account doesn't exist. Would you like to create a new account? (yes/no)")
-            response = input().strip().lower()
-            if response == "yes":
-                NewAccount(pin_code, personal_ID)
-            else:
-                temp_account = BankAccount("", "", "", "", "", 0)
-                temp_account.log_out()
-            return
-        data = user_details.row_values(cell.row)
-        row_number = cell.row
-        if data[2] == pin_code:
-            costumer = BankAccount(data[0], data[1], data[2], data[3], data[4], row_number, float(data[5]))
-            costumer.welcome_message()
+            while True:
+                try:
+                    print("Account doesn't exist. Would you like to create a new account? (yes/no)")
+                    response = input().strip().lower()
+                    if response == "yes":
+                        NewAccount(pin_code, personal_ID)
+                        return
+                    elif response == "no":
+                        temp_account = BankAccount("", "", "", "", "", 0)
+                        temp_account.log_out()
+                        return
+                    else:
+                        raise ValueError(
+                            "Invalid choice! The answer must be either 'yes' or 'no'."
+                        )
+                except ValueError as e:
+                    print(e)
         else:
-            print("Wrong PIN code.")
-            pin_code = input("Please enter your PIN code:\n")
-            print()
-            account_validation(personal_ID, pin_code)   
+            data = user_details.row_values(cell.row)
+            row_number = cell.row
+            if data[2] == pin_code:
+                costumer = BankAccount(data[0], data[1], data[2], data[3], data[4], row_number, float(data[5]))
+                costumer.welcome_message()
+            else:
+                print("Wrong PIN code.")
+                pin_code = input("Please enter your PIN code:\n")
+                print()
+                account_validation(personal_ID, pin_code)   
     except gspread.exceptions.GSpreadException as e:
         print(f"An unexpected error occurred: {e}")
-
 
 get_login_inputs()
