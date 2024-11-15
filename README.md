@@ -1,8 +1,136 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Online Bank Account System
 
-Welcome,
+![Online Bank Account System]()
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **May 14, 2024**
+Visit the deployed site: [Online Bank Account System](https://online-bank-account-system-0e5e73e47365.herokuapp.com/)
+
+
+## CONTENTS
+
+* [Introduction](#introduction)
+* [Project](#project)
+    * [User goals](#user-goals)
+    * [Site owner goals](#site-owner-goals)
+    * [Pre development](#pre-development)
+        * [Flowchart](#flowchart)
+    * [Development](#development)
+        * [Google sheets](#google-sheets)
+        * [Technologies Used](#technologies-used)
+            * [Languages Used](#languages-used)
+            * [Frameworks, Libraries & Programs Used](#frameworks-libraries--programs-used)
+        * [Features](#features)
+        * [Future implementations](#future-implementations)
+* [Deployment](#deployment)
+    * [Heroku](#heroku)
+    * [Local Development](#local-development)
+        * [How to Fork](#how-to-fork)
+        * [How to Clone](#how-to-clone)
+* [Testing](#testing)
+  * [Solved Bugs](#solved-bugs)
+  * [Known Bugs](#known-bugs)
+* [Credits](#credits)
+  * [Code Used](#code-used)
+  * [Content](#content)
+  * [Acknowledgments](#acknowledgments)
+
+- - -
+
+## Introduction
+
+## Project
+
+### User goals
+
+### Site owner goals
+
+### Pre development
+
+#### Flowchart
+
+### Development
+
+#### Google sheets
+
+#### Technologies Used
+
+##### Languages Used
+
+##### Frameworks, Libraries & Programs Used
+
+#### Features
+
+#### Future implementations
+
+- - -
+## Deployment
+
+### Heroku
+
+The Application has been deployed from GitHub to Heroku by following the steps:
+
+1. Create or log in to your account at heroku.com
+2. Create a new app, add a unique app name ( for example corri-construction-p3) and then choose your region
+3. Click on create app
+4. Go to "Settings"
+5. Under Config Vars add the private API key information using key 'CRED' and into the value area copy the API key information added to the .json file.  Also add a key 'PORT' and value '8000'.
+6. Add required buildpacks (further dependencies). For this project, set it up so Python will be on top and Node.js on bottom
+7. Go to "Deploy" and select "GitHub" in "Deployment method"
+8. To connect Heroku app to your Github repository code enter your repository name, click 'Search' and then 'Connect' when it shows below.
+9. Choose the branch you want to build your app from
+10. If preferred, click on "Enable Automatic Deploys", which keeps the app up to date with your GitHub repository
+11. Wait for the app to build. Once ready you will see the “App was successfully deployed” message and a 'View' button to take you to your deployed link.
+
+### Local Development
+
+#### How to Fork
+
+To fork the repository:
+
+1. Log in (or sign up) to Github.
+2. Go to the repository for this project, [fariba-kamani/rockScissorsPaperLizardSpock](https://github.com/Fariba-Kamani/rockScissorsPaperLizardSpock). 
+3. Click the Fork button in the top right corner.
+
+#### How to Clone
+
+To clone the repository:
+
+1. Log in (or sign up) to GitHub.
+2. Go to the repository for this project, [fariba-kamani/rockScissorsPaperLizardSpock](https://github.com/Fariba-Kamani/rockScissorsPaperLizardSpock)
+3. Click on the code button, select whether you would like to clone with HTTPS, SSH or GitHub CLI and copy the link shown.
+4. Open the terminal in your code editor and change the current working directory to the location you want to use for the cloned directory.
+5. Type 'git clone' into the terminal and then paste the link you copied in step 3. Press enter.
+
+- - -
+
+## Testing
+
+Please refer to [TESTING.md](TESTING.md) file for all testing carried out.
+
+### Solved Bugs
+
+### Known Bugs
+
+  There are no known or unsolved bugs left in the program.
+
+- - -
+
+## Credits
+
+### Code Used
+
+Throughout the entire project development, I utilized the Code Institute course materials for HTML, CSS, and JavaScript. I followed the tutorials for the Love Running and Love Maths walkthrough projects to set up and start my project properly. The links from Code Institute that I relied on through out my project are as follow:
+
+### Content
+
+All other technologies used during the development of this project are mentioned and credited in the [technologies used](#technologies-used) section.
+
+### Acknowledgments
+
+I would like to acknowledge
+
+* My Code Institute mentor, Jubril Akolade, for reviewing my project and inspiring me to improve my website.
+* The Code Institute tutor team, who were available and guided me whenever I was stuck troubleshooting issues during the development of my projects.
+* My partner and friends, who took the time to test my website on their devices and provided constructive feedback.
 
 ## Reminders
 
