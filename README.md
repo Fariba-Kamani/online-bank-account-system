@@ -41,7 +41,19 @@ Visit the deployed site: [Online Bank Account System](https://online-bank-accoun
 
 ### User goals
 
+* To have secure, fast, and reliable login process
+* To have access to their accounts 24/7
+* To have access to smooth navigation, clear instructions and feedbacks while using their online bank account
+* To be able to view balance, transactions history and perform transactions (deposit, withdraw and transfer)
+* Ensure sensitive information (personal ID, PIN, account details) is protected.
+* Instant confirmation of transactions or other actions done.
+
 ### Site owner goals
+
+* To reduce the workload by automating tasks and actions that do not require personal involvement.
+* To keep their customers more satisfied by speeding up tasks and procedures that can be performed independently and without the involvement of personnel. 
+* To handle issues if the user enters unauthorized inputs or attempts to perform unauthorized transactions.
+* To ensure the platform is secure and reliable by protecting clients' sensitive information.
 
 ### Pre development
 
@@ -60,6 +72,10 @@ Visit the deployed site: [Online Bank Account System](https://online-bank-accoun
 #### Features
 
 #### Future implementations
+
+ * Pay bills and set up automatic payments.
+ * Get notified of suspicious activity or failed login attempts.
+ 
 
 - - -
 ## Deployment
