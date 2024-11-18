@@ -10,11 +10,6 @@ Visit the deployed site: [Online Bank Account System](https://online-bank-accoun
 
 * [AUTOMATED TESTING](#automated-testing)
   * [PEP8 Validator](#pep8-validator)
-  * [W3C Validator](#w3c-validator)
-  * [Lighthouse](#lighthouse)
-    * [Desktop Results](#desktop-results)
-    * [Mobile Results](#mobile-results)
-  * [Accessibility Testing](#accessibility-testing)
 * [MANUAL TESTING](#manual-testing)
   * [Testing User Goals](#testing-user-goals)
   * [Testing Site Owner Goals](#testing-site-owner-goals)
@@ -26,34 +21,6 @@ Testing was ongoing throughout the entire project development. Chrome DevTools w
 ### Automated Testing
 
 #### PEP8 Validatior
-
-#### W3C Validator
-
-  - HTML: No errors were returned for index.html and 404.html when passing through the official [W3C validator](https://validator.w3.org/).
-
-  - CSS: No errors were found for style.css when passing through the official [Jigsaw validator](https://jigsaw.w3.org/css-validator/).
-
-#### Lighthouse
-
-I used Lighthouse within Chrome DevTools to test the performance, accessibility, best practices, and SEO of the website. I have included the test results below.
-
-##### Desktop Results
-  
-* 404 error page
-
-    ![404.html]()
-
-##### Mobile Results
-
-* 404 error page
-
-    ![404.html]()
-
-#### Accessibility Testing
-
-[WAVE](https://wave.webaim.org/), a web accessibility evaluation tool, has been used to test the accessibility of both index.html and 404.html. No errors were found.
-
-  * [404.html]() - No errors found. One alert was found due to adjacent links going to the same URL.
 
 ### Manual Testing
 

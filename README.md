@@ -17,14 +17,12 @@ Visit the deployed site: [Online Bank Account System](https://online-bank-accoun
         * [Google sheets](#google-sheets)
         * [Technologies Used](#technologies-used)
             * [Languages Used](#languages-used)
-            * [Frameworks, Libraries & Programs Used](#frameworks-libraries--programs-used)
+            * [Libraries Used](#libraries-used)
         * [Features](#features)
         * [Future implementations](#future-implementations)
 * [Deployment](#deployment)
     * [Heroku](#heroku)
-    * [Local Development](#local-development)
-        * [How to Fork](#how-to-fork)
-        * [How to Clone](#how-to-clone)
+    * [Branching the GitHub Repository using GitHub Desktop and Visual Studio Code](#branching-the-github-repository-using-github-desktop-and-visual-studio-code)
 * [Testing](#testing)
   * [Solved Bugs](#solved-bugs)
   * [Known Bugs](#known-bugs)
@@ -79,7 +77,24 @@ To describe the pre-development phase of this project, I have included the follo
 
 ### Development
 
+I have used Object-Oriented Programming (OOP) principles in Python for implementing this project. This helps making the system easy to maintain and extend. The OOP design consists of the BankAccount class which serves as the blueprint for all user accounts, and NewAccount class which inherits from BankAccount and handles the creation of the new accounts. 
+
+I have decided not to include error pages such as 404 (Not Found) and 500 (Internal Server Error) in my project since my application is terminal-based and such error pages are more relevant for web-based applications. Instead I have tried to improve the user experience in the terminal with clear error messages for issues such as invalid inputs or unmatched cell in the worksheets during the development of the project.
+
 #### Google sheets
+
+The project is connected to Google Sheets API for real-time data storage and data updates. The Sheets serve as the system's backend. 
+
+* All user account details are stored in the user-details worksheet.
+
+* Each row in the user-details worksheet represents an account.
+
+* The system retrieves user data during login and updates balances and transaction history after any action (e.g., withdrawal, deposit).
+
+* Transaction data is stored in a separate worksheet (transactions) for detailed transaction history.
+
+![user-details worksheet](assets/images/user-details-work-sheet.png)
+![transactions worksheet](assets/images/transactions-work-sheet.png)
 
 #### Technologies Used
 
@@ -89,15 +104,11 @@ To describe the pre-development phase of this project, I have included the follo
 
 * [GitPod](https://gitpod.io/) - IDE used to create the site.
 
-* [Chrome DevTools](https://developer.chrome.com/docs/devtools) - To troubleshoot and test features, solve issues with responsiveness and styling.
-
-* [Favicon generator](https://realfavicongenerator.net/) - To create favicon.
+* [Heroku](https://heroku.com/) - a cloud platform-as-a-service (PaaS) that allows building, deploying, and managing applications without needing to manage infrastructure.
 
 * [Microsoft Bing Copilot Tools](https://www.bing.com/chat) - An AI chat that I used to check the spell and grammar of my website and README.md file.
 
-* [W3C validator](https://validator.w3.org/) - to validate the HTML code.
-
-* [Jigsaw validator](https://jigsaw.w3.org/css-validator/) - to validate the CSS code.
+* [Google Cloud Platform](https://console.cloud.google.com/) - A platform for activating the API credentials
 
 * [Python syntax checker](https://extendsclass.com/python-tester.html) - to validate the Python code.
 
@@ -105,56 +116,56 @@ To describe the pre-development phase of this project, I have included the follo
 
 ##### Languages Used
 
-HTML, CSS, Python
+Python
 
-##### Frameworks, Libraries & Programs Used
+##### Libraries Used
+
+* gspread: I have used this library to interact with Google Sheets from the Python application which allows retrieving, updating, and appending data in Google Sheets.
+
+* google.oauth2.service_account.Credentials: It handles authentication to connect the Python app with the Google Sheets API securely. I have used this library to authenticate and authorize my app to read and write data in Google Sheets.
+
+* datetime: This library which Provides functions for handling date and time has been used to log transaction date and time in the Google Sheets for historical records.
+
+* tabulate: I used this library to format and display tabular data as text tables. I chose to display the actions menu and the transaction history in a table format for better readability in the terminal.
 
 #### Features
 
 #### Future implementations
 
- * Pay bills and set up automatic payments.
- * Get notified of suspicious activity or failed login attempts.
+ * Add multi-currency support.
+ * Implement email or SMS notifications for transactions.
+ * Deploy the project as a web-based application.
  
-
 - - -
 ## Deployment
 
 ### Heroku
 
-The Application has been deployed from GitHub to Heroku by following the steps:
+This project was deployed using Code Institute's moock terminal for Heroku. The Application has been deployed from GitHub to Heroku by following the steps below:
 
-1. Create or log in to your account at heroku.com
-2. Create a new app, add a unique app name ( for example corri-construction-p3) and then choose your region
+1. Log in to your account at heroku.com
+2. Create a new app, add a unique app name (for example online-bank-account-system) and then choose your region
 3. Click on create app
 4. Go to "Settings"
-5. Under Config Vars add the private API key information using key 'CRED' and into the value area copy the API key information added to the .json file.  Also add a key 'PORT' and value '8000'.
+5. Under Config Vars add the private API key information using key 'CREDS' and into the value area copy the API key information added to the .json file.  Also add a key 'PORT' and value '8000'.
 6. Add required buildpacks (further dependencies). For this project, set it up so Python will be on top and Node.js on bottom
 7. Go to "Deploy" and select "GitHub" in "Deployment method"
 8. To connect Heroku app to your Github repository code enter your repository name, click 'Search' and then 'Connect' when it shows below.
 9. Choose the branch you want to build your app from
-10. If preferred, click on "Enable Automatic Deploys", which keeps the app up to date with your GitHub repository
+10. If preferred, click on "Enable Automatic Deploys", which keeps the app up to date with new changes pushed to your GitHub repository
 11. Wait for the app to build. Once ready you will see the “App was successfully deployed” message and a 'View' button to take you to your deployed link.
 
-### Local Development
+### Branching the GitHub Repository using GitHub Desktop and Visual Studio Code
 
-#### How to Fork
+1. Go to the GitHub repository.
+2. Click on the branch button in the left hand side under the repository name.
+3. Give your branch a name.
+4. Go to the CODE area on the right and select "Open with GitHub Desktop".
+5. You will be asked if you want to clone the repository - say yes.
+6. GitHub desktop will suggest what to do next - select Open code using Visual Studio Code.
+   
+The deployed project live link is [HERE](https://online-bank-account-system-0e5e73e47365.herokuapp.com/) - ***Use Ctrl (Cmd) and click to open in a new window.***
 
-To fork the repository:
-
-1. Log in (or sign up) to Github.
-2. Go to the repository for this project, [fariba-kamani/rockScissorsPaperLizardSpock](https://github.com/Fariba-Kamani/rockScissorsPaperLizardSpock). 
-3. Click the Fork button in the top right corner.
-
-#### How to Clone
-
-To clone the repository:
-
-1. Log in (or sign up) to GitHub.
-2. Go to the repository for this project, [fariba-kamani/rockScissorsPaperLizardSpock](https://github.com/Fariba-Kamani/rockScissorsPaperLizardSpock)
-3. Click on the code button, select whether you would like to clone with HTTPS, SSH or GitHub CLI and copy the link shown.
-4. Open the terminal in your code editor and change the current working directory to the location you want to use for the cloned directory.
-5. Type 'git clone' into the terminal and then paste the link you copied in step 3. Press enter.
 
 - - -
 
@@ -187,30 +198,3 @@ I would like to acknowledge
 * My Code Institute mentor, Jubril Akolade, for reviewing my project and inspiring me to improve my website.
 * The Code Institute tutor team, who were available and guided me whenever I was stuck troubleshooting issues during the development of my projects.
 * My partner and friends, who took the time to test my website on their devices and provided constructive feedback.
-
-## Reminders
-
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
-
-## Creating the Heroku app
-
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
----
-
-Happy coding!
