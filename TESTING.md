@@ -1,6 +1,6 @@
 # Online Bank Account System -  Testing
 
-![Online Bank Account System]()
+![Online Bank Account System](assets/images/portal-image.jpg)
 
 Visit the deployed site: [Online Bank Account System](https://online-bank-account-system-0e5e73e47365.herokuapp.com/)
 

@@ -1,6 +1,6 @@
 # Online Bank Account System
 
-![Online Bank Account System]()
+![Online Bank Account System](assets/images/portal-image.jpg)
 
 Visit the deployed site: [Online Bank Account System](https://online-bank-account-system-0e5e73e47365.herokuapp.com/)
 
@@ -37,6 +37,18 @@ Visit the deployed site: [Online Bank Account System](https://online-bank-accoun
 
 ## Introduction
 
+Online Bank Account System is a Python terminal portal, which runs in the Code Institute mock terminal on Heroku. The project is designed to simulate essential banking operations, such as checking balances, making deposits, withdrawals, transferring funds, and viewing transaction history. The system uses Google Sheets, connected via the Google Sheets API, to store and manage user data, ensuring all sensitive information is kept secure, private, and not exposed on GitHub.
+
+The way the project works can be devided into four phases; user authentication, account Operations, account creation and data storage.
+
+* The user authentication phase prompts the user to enter their Personal ID and PIN, and checks the Google Sheets database to validate credentials.
+
+* During account operations, once the user is logged in, they can perform various banking tasks through a menu-driven interface, with all transactions updated in real-time in Google Sheets.
+
+* During the account creation phase, new users can create an account with their personal information after the system validates their inputs (e.g., names and surnames must contain only letters and be at least two characters long.).
+
+* Finally in data storage phase, user and transaction data are stored in a Google Sheet, ensuring persistent and organized data management.
+
 ## Project
 
 ### User goals
@@ -57,7 +69,13 @@ Visit the deployed site: [Online Bank Account System](https://online-bank-accoun
 
 ### Pre development
 
+During the pre-development phase, based on the analysis I made of the user goals and the site owner's goals, I planned the system structure and decided how user data would be stored and managed (using Google Sheets as a database). I also planned which features should be included and what technologies should be utilized during the development, based on the portal's needs.
+
+To describe the pre-development phase of this project, I have included the following flowchart to illustrate the planning and decision-making processes.
+
 #### Flowchart
+   
+![The flowchart](assets/images/flow-chart.png)
 
 ### Development
 
@@ -65,7 +83,29 @@ Visit the deployed site: [Online Bank Account System](https://online-bank-accoun
 
 #### Technologies Used
 
+* [Git](https://git-scm.com/) - For version control.
+
+* [Github](https://github.com/) - To save and store the files for the website.
+
+* [GitPod](https://gitpod.io/) - IDE used to create the site.
+
+* [Chrome DevTools](https://developer.chrome.com/docs/devtools) - To troubleshoot and test features, solve issues with responsiveness and styling.
+
+* [Favicon generator](https://realfavicongenerator.net/) - To create favicon.
+
+* [Microsoft Bing Copilot Tools](https://www.bing.com/chat) - An AI chat that I used to check the spell and grammar of my website and README.md file.
+
+* [W3C validator](https://validator.w3.org/) - to validate the HTML code.
+
+* [Jigsaw validator](https://jigsaw.w3.org/css-validator/) - to validate the CSS code.
+
+* [Python syntax checker](https://extendsclass.com/python-tester.html) - to validate the Python code.
+
+* [Lucidchart](https://www.lucidchart.com/) - To create flowchart.
+
 ##### Languages Used
+
+HTML, CSS, Python
 
 ##### Frameworks, Libraries & Programs Used
 
