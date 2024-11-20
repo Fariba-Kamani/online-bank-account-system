@@ -255,21 +255,26 @@ def get_login_inputs():
     print("______________________________________________________")
     while True:
         personal_ID = input("Enter your personal ID number here, 10 digits:\n")
+        # pin_code = input("Enter your PIN code here, 6 digits:\n")
+        print()
+        if login_validation(personal_ID, "personal ID number", 10):
+            break
+    while True:
         pin_code = input("Enter your PIN code here, 6 digits:\n")
         print()
-        if login_validation(personal_ID, pin_code):
+        if login_validation(pin_code, "PIN code", 6):
             break
     account_validation(personal_ID, pin_code)
 
-def login_validation(personal_ID, pin_code):
+def login_validation(login_input, string, length):
     try:
-        if not personal_ID.isdigit() or not pin_code.isdigit():
+        if not login_input.isdigit():
             raise ValueError(
-                "Your personal ID and PIN code should only include digits!"
+                f"Your {string} should only include digits!"
             )
-        elif len(personal_ID) != 10 or len(pin_code) != 6:
+        elif len(login_input) != length:
             raise ValueError(
-                "Your personal ID number should be exactly 10 digits, \nand your PIN code should be exactly 6 digits."
+                f"Your {string} should be exactly {length} digits."
             )
     except ValueError as e:
         print(f"Invalid data: {e} Please try again.\n")
@@ -283,7 +288,7 @@ def account_validation(personal_ID, pin_code):
         if cell is None:
             while True:
                 try:
-                    print("Account doesn't exist. Would you like to create a new account?")
+                    print(f"Account doesn't exist. Would you like to create a new account with \npersonal ID number {personal_ID} and \nPIN code {pin_code}?")
                     response = input("(yes/no)\n").strip().lower()
                     if response == "yes":
                         NewAccount(pin_code, personal_ID)
@@ -306,7 +311,7 @@ def account_validation(personal_ID, pin_code):
                 costumer.welcome_message()
             else:
                 print("Wrong PIN code.")
-                pin_code = input("Please enter your PIN code:\n")
+                pin_code = input("Please enter the correct PIN code:\n")
                 print()
                 account_validation(personal_ID, pin_code)   
     except gspread.exceptions.GSpreadException as e:
