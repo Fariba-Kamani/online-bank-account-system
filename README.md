@@ -130,6 +130,42 @@ Python
 
 #### Features
 
+* **User authentication:**
+
+  * **Personal ID and PIN code login:** Allows users to log in securely with their personal ID and PIN code.
+
+  ![Personal ID and PIN code login](assets/images/personal-id-pin-code-login.png)
+
+  * **Login inputs error handling:** Validates the user login inputs to ensure they only include digits and are of a certain length.
+
+  ![Login inputs error handling 1](assets/images/login-inputs-error-handling-1.png)
+
+  ![Login inputs error handling 2](assets/images/login-input-error-handling-2.png)
+
+  * **Credential validation:**
+
+    * Confirms whether the user has an account or not. 
+
+      * If the account doesn't exist: It informs the user and user is offered to create a new account.(See the image under [Account Creation](#account-creation))
+
+      * If the account is found: The user successfully logs in. (See the image under [Account Dashboard](#account-dashboard))
+
+    * Verifies the input PIN code against the stored PIN code in Google Sheets for the account matched with the inputted personal ID.
+
+    ![PIN code error handling](assets/images/pin-code-error-handling.png)
+
+* **Account Dashboard:** <a id="account-dashboard"></a>Displays a personal welcome message, including the account holder's name and account number, along with an interactive menu for account actions when the user successfully logs in.
+
+![Account dashboard](assets/images/account-dashboard.png)
+
+* **Account Creation:** <a id="account-creation"></a>This option is offered if the user's personal ID doesn't exist in Google Sheets. 
+
+![Account existence validation](assets/images/account-exist-validation.png)
+
+  
+
+
+
 #### Future implementations
 
  * Add multi-currency support.
