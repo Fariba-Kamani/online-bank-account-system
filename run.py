@@ -211,26 +211,34 @@ class NewAccount(BankAccount):
     def __init__(self, pin_code, id_number ):
         while True:
             name = input("Please enter your first name here:\n").strip().capitalize()
+            print()
+            if self.validate_new_account_input(name, "name"):
+                self.name = name
+                break
+        while True:
             surname = input("Please enter your surname here:\n").strip().capitalize()
             print()
-            if not name or not surname:
-                print("Invalid data: Name or surname is missing. Required data. Please try again.")
-                continue    
-            elif not name.isalpha() or not surname.isalpha():
-                print("Invalid data: Name and surname should contain only letters. Please try again.")
-                continue
-            elif len(name) < 2 or len(surname) < 2:
-                print("Invalid data: Name and surname must each be at least 2 characters long. Please try again.")
-                continue
-            self.name = name
-            self.surname = surname
-            break
+            if self.validate_new_account_input(surname, "surname"):
+                self.surname = surname
+                break
         account_number = int(SHEET.worksheet('user_details').col_values(5)[-1]) + 1
         row_number = len(SHEET.worksheet('user_details').get_all_values()) + 1
         super().__init__(name, surname, pin_code, int(id_number), account_number, row_number, balance=0)
         self.add_new_account()
         self.confirmation_new_account()
     
+    def validate_new_account_input(self, value, field_name):
+        if not value:
+            print(f"Invalid data: {field_name} is missing. Required data. Please try again.")
+            return False    
+        elif not value.isalpha():
+            print(f"Invalid data: {field_name} should contain only letters. Please try again.")
+            return False
+        elif len(value) < 2:
+            print(f"Invalid data: {field_name} must be at least 2 characters long. Please try again.")
+            return False
+        return True
+
     def add_new_account(self):
         new_account_data = [self.name, self.surname, self.pin_code, self.id_number, self.account_number, self.balance]
         SHEET.worksheet("user_details").append_row(new_account_data)
