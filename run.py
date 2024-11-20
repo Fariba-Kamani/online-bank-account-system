@@ -72,7 +72,7 @@ class BankAccount:
         try:
             amount = float(input("Please enter the amount you want to deposit to your account here:\n"))
             print()
-            if amount > 0:
+            if 0 < amount <= 5000:
                 self.balance += round(amount, 2)
                 time = datetime.now().strftime("%Y-%m-%d %H:%M")
                 self.transactions.append([int(self.account_number), "Deposit", round(amount, 2), time, int(self.account_number)])
@@ -80,6 +80,9 @@ class BankAccount:
                 self.update_balance()
                 print(f"Deposit was successful. Current Balance: {self.balance:.2f} sek")
                 print()
+            elif amount > 5000:
+                print("You are not authorized to deposit more than 5000 sek.")
+                self.deposit()
             else:
                 print("The amount should be greater than 0 sek.")
                 self.deposit()
@@ -228,6 +231,9 @@ class NewAccount(BankAccount):
         self.confirmation_new_account()
     
     def validate_new_account_input(self, value, field_name):
+        """
+        Ensures that the inputted name and surname are non-empty, contain only letters, and are at least 2 characters long.
+        """
         if not value:
             print(f"Invalid data: {field_name} is missing. Required data. Please try again.")
             return False    
