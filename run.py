@@ -52,7 +52,7 @@ class BankAccount:
             elif menu_response == "2":
                 self.deposit()
             elif menu_response == "3":
-                self.withdra()
+                self.withdraw()
             elif menu_response == "4":
                 self.transfer()
             elif menu_response == "5":
@@ -65,8 +65,7 @@ class BankAccount:
                 print("Invalid value! Please choose a value from the menu.")
 
     def check_balance(self):
-        print(f"Your balance is {self.balance:.2f} sek.\n") 
-        #self.show_menu()  
+        print(f"Your balance is {self.balance:.2f} sek.\n")   
 
     def deposit(self):
         try:
@@ -89,11 +88,10 @@ class BankAccount:
         except ValueError:
             print("Invalid input, please enter a valid number.")
             self.deposit()
-        #self.show_menu()
 
-    def withdra(self):
+    def withdraw(self):
         try:
-            amount = float(input("Please enter the amount you want to withdra from your account here:\n"))
+            amount = float(input("Please enter the amount you want to withdraw from your account here:\n"))
             print()
             if amount > 0 and amount <= self.balance:
                 self.balance -= round(amount, 2)
@@ -101,18 +99,17 @@ class BankAccount:
                 self.transactions.append([int(self.account_number), "Withdrawal", round(amount,2), time, int(self.account_number)])
                 self.update_transactions()
                 self.update_balance()
-                print(f"Withdrawal was successful. Current Balance: {self.balance:.2f} sek")
+                print(f"Withdrawal was successful. Current balance: {self.balance:.2f} sek")
                 print()
             elif amount <= 0:
                 print("Please enter an amount greater than 0 sek.")
-                self.withdra()
+                self.withdraw()
             else:
                 print("Not enough bank account balance for this request. Please enter a valid value.")
-                self.withdra()
+                self.withdraw()
         except ValueError:
             print("Invalid input, please enter a valid number.")
-            self.withdra()
-        #self.show_menu()
+            self.withdraw()
     
     def update_transactions(self):
         last_transaction = self.transactions[-1]
@@ -120,15 +117,12 @@ class BankAccount:
     
     def update_balance(self):
         SHEET.worksheet("user_details").update_cell(self.row_number, 6, f"{self.balance:.2f}")
-        #print(f"{transaction_type} successful. Current Balance: {self.balance:.2f} sek")
-        #print()
     
     def transactions_history(self):
         transactions_worksheet = SHEET.worksheet("transactions")
         matched_cells = [cell for cell in transactions_worksheet.findall(self.account_number) if cell.col == 1]
         if not matched_cells:
             print(f"No transactions found for account {self.account_number}.\n")
-            #self.show_menu()
             return
         transactions_history_list = []
         for cell in matched_cells:
@@ -195,11 +189,11 @@ class BankAccount:
         self.transactions.append([int(self.account_number), "Transfered", round(transfer_amount,2), time, int(target_account.account_number)])
         self.update_transactions()
         self.update_balance()
-        print(f"Transfer was successful. Current Balance: {self.balance:.2f} sek")
+        print(f"Transfer was successful. Current balance: {self.balance:.2f} sek")
         print()
         # Update recipient's transactions
         target_account.balance += round(transfer_amount, 2)
-        target_account.transactions.append([int(target_account.account_number), "Receive", round(transfer_amount,2), time, int(self.account_number)])
+        target_account.transactions.append([int(target_account.account_number), "Received", round(transfer_amount,2), time, int(self.account_number)])
         target_account.update_transactions()
         target_account.update_balance()       
 
@@ -250,7 +244,7 @@ class NewAccount(BankAccount):
         SHEET.worksheet("user_details").append_row(new_account_data)
 
     def confirmation_new_account(self):
-        print(f"Congratulations! A new account has been successfully created.\n{self.name} {self.surname}\npersonal ID number: {self.id_number}\naccount number: {self.account_number}\nPIN code: {self.pin_code}\nInitial balance amount: {self.balance} sek")
+        print(f"Congratulations! A new account has been successfully created.\n{self.name} {self.surname}\nPersonal ID number: {self.id_number}\nAccount number: {self.account_number}\nPIN code: {self.pin_code}\nInitial balance amount: {self.balance} sek")
         print("Please login with your personal ID number and PIN code to access your account.")              
 
 def get_login_inputs():
@@ -264,12 +258,11 @@ def get_login_inputs():
     """
     print("_______________________WELCOME!_______________________\n")
     print(" Please enter your personal ID number and your PIN code to login.")
-    print(" -Personal ID number should be 10 digits. Example: 8909091234, format: YYMMDD****")
+    print(" -Personal ID number should be 10 digits. Format: YYMMDD****, Example: 8909091234")
     print(" -PIN code should be exactly 6 digits. Example: 123456")
     print("______________________________________________________")
     while True:
         personal_ID = input("Enter your personal ID number here, 10 digits:\n")
-        # pin_code = input("Enter your PIN code here, 6 digits:\n")
         print()
         if login_validation(personal_ID, "personal ID number", 10):
             break

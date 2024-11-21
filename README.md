@@ -20,9 +20,11 @@ Visit the deployed site: [Online Bank Account System](https://online-bank-accoun
             * [Libraries Used](#libraries-used)
         * [Features](#features)
         * [Future implementations](#future-implementations)
-* [Deployment](#deployment)
-    * [Heroku](#heroku)
-    * [Branching the GitHub Repository using GitHub Desktop and Visual Studio Code](#branching-the-github-repository-using-github-desktop-and-visual-studio-code)
+* [Deployment & Local Development](#deployment--local-development)
+  * [Deployment](#deployment)
+  * [Local Development](#local-development)
+    * [How to Fork](#how-to-fork)
+    * [How to Clone](#how-to-clone)
 * [Testing](#testing)
   * [Solved Bugs](#solved-bugs)
   * [Known Bugs](#known-bugs)
@@ -134,13 +136,14 @@ Python
 
   * **Personal ID and PIN code login:** Allows users to log in securely with their personal ID and PIN code.
 
-  ![Personal ID and PIN code login](assets/images/personal-id-pin-code-login.png)
+  ![Personal ID  login]()
+  ![PIN code login]()
 
-  * **Login inputs error handling:** Validates the user login inputs to ensure they only include digits and are of a certain length.
+  * **Login input error handling:** Validates the user login inputs to ensure they only include digits and are of a certain length.
 
-  ![Login inputs error handling 1](assets/images/login-inputs-error-handling-1.png)
+  ![Login inputs error handling personal ID]()
 
-  ![Login inputs error handling 2](assets/images/login-input-error-handling-2.png)
+  ![Login inputs error handling  PIN code]()
 
   * **Credential validation:**
 
@@ -162,10 +165,6 @@ Python
 
 ![Account existence validation](assets/images/account-exist-validation.png)
 
-  
-
-
-
 #### Future implementations
 
  * Add multi-currency support.
@@ -173,9 +172,9 @@ Python
  * Deploy the project as a web-based application.
  
 - - -
-## Deployment
+## Deployment & Local Development
 
-### Heroku
+### Deployment
 
 This project was deployed using Code Institute's moock terminal for Heroku. The Application has been deployed from GitHub to Heroku by following the steps below:
 
@@ -191,17 +190,25 @@ This project was deployed using Code Institute's moock terminal for Heroku. The 
 10. If preferred, click on "Enable Automatic Deploys", which keeps the app up to date with new changes pushed to your GitHub repository
 11. Wait for the app to build. Once ready you will see the “App was successfully deployed” message and a 'View' button to take you to your deployed link.
 
-### Branching the GitHub Repository using GitHub Desktop and Visual Studio Code
+### Local Development
 
-1. Go to the GitHub repository.
-2. Click on the branch button in the left hand side under the repository name.
-3. Give your branch a name.
-4. Go to the CODE area on the right and select "Open with GitHub Desktop".
-5. You will be asked if you want to clone the repository - say yes.
-6. GitHub desktop will suggest what to do next - select Open code using Visual Studio Code.
-   
-The deployed project live link is [HERE](https://online-bank-account-system-0e5e73e47365.herokuapp.com/) - ***Use Ctrl (Cmd) and click to open in a new window.***
+#### How to Fork
 
+To fork the repository:
+
+1. Log in (or sign up) to Github.
+2. Go to the repository for this project, [Fariba-Kamani/online-bank-account-system](https://github.com/Fariba-Kamani/online-bank-account-system). 
+3. Click the Fork button in the top right corner.
+
+#### How to Clone
+
+To clone the repository:
+
+1. Log in (or sign up) to GitHub.
+2. Go to the repository for this project, [Fariba-Kamani/online-bank-account-system](https://github.com/Fariba-Kamani/online-bank-account-system).
+3. Click on the code button, select whether you would like to clone with HTTPS, SSH or GitHub CLI and copy the link shown.
+4. Open the terminal in your code editor and change the current working directory to the location you want to use for the cloned directory.
+5. Type 'git clone' into the terminal and then paste the link you copied in step 3. Press enter.
 
 - - -
 
