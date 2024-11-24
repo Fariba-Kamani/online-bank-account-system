@@ -141,9 +141,9 @@ Python
 
   * **Login input error handling:** Validates the user login inputs to ensure they only include digits and are of a certain length.
 
-  ![Login inputs error handling personal ID](assets/images/error-handling-personal-id.png)
+  ![Login input error handling personal ID](assets/images/error-handling-personal-id.png)
 
-  ![Login inputs error handling PIN code](assets/images/error-handling-pin-code.png)
+  ![Login input error handling PIN code](assets/images/error-handling-pin-code.png)
 
   * **Credential validation:**
 
@@ -157,7 +157,7 @@ Python
 
           * If the PIN code doesn't match, the user is informed and asked to enter the correct PIN code.
 
-          ![PIN code error handling](assets/images/unmatched-pin-code.png)
+          ![PIN code input error handling](assets/images/unmatched-pin-code.png)
 
           * If the PIN code matches, the user successfully logs in. (See the image under [Account Dashboard](#account-dashboard))
 
@@ -175,11 +175,11 @@ Python
 
     * Error handling: Provides feedback for invalid inputs and prompts users to correct inputs.
 
-    ![New account creation error handling example 1](assets/images/account-creation-error-handling1.png)
+    ![New account creation input error handling example 1](assets/images/account-creation-error-handling1.png)
 
-    ![New account creation error handling example 2 too short input](assets/images/error-handling-too-short-input.png)
+    ![New account creation input error handling example 2 too short input](assets/images/error-handling-too-short-input.png)
 
-    ![New account creation error handling example 3](assets/images/account-creation-error-handling-example3.png)
+    ![New account creation input error handling example 3](assets/images/account-creation-error-handling-example3.png)
 
     * If the user chooses not to create a new account, the user will be logged out.
 
@@ -188,6 +188,92 @@ Python
 * **Account Dashboard:** <a id="account-dashboard"></a>Displays a personal welcome message, including the account holder's name and account number, along with an interactive menu for account actions when the user successfully logs in.
 
 ![Account dashboard](assets/images/account-dashboard.png)
+
+  * The menu input error handling
+
+  ![The menu input error handling](assets/images/menu-error-handling.png)
+
+* **The Bank Operations:**
+
+  * **Check Balance:** Runs by choosing 1 from the menu and allows users to view their current account balance. 
+
+    ![check balance](assets/images/check-balance.png)
+  
+  * **Deposit Funds:** Runs by choosing 2 from the menu,
+
+    * Enables users to deposit money into their accounts.
+
+    * Successful deposit confirmation message with information about the current balance
+
+    ![successful deposit confirmation](assets/images/successful-deposit.png)
+
+    * Error handling if a user tries to deposit an amount less than or equal to zero, or deposit more than 5000 SEK.
+
+    ![deposit input error handling](assets/images/deposit-error-handling.png) 
+
+    * Updates the account balance and logs the transaction details in Google Sheets.
+
+    ![deposit transaction update](assets/images/deposit-transaction-update.png)
+
+  * **Withdraw Funds:** Runs by choosing 3 from the menu,
+
+    * Allows users to withdraw money from their accounts if sufficient balance is available.
+
+    * Successful withdrawal confirmation message with information about the current balance
+
+    ![successful withdrawal confirmation](assets/images/successful-withdrawal.png)
+
+    * Updates the balance and logs the transaction in Google Sheets.
+
+    ![withdrawal transaction update](assets/images/withdrawal-transaction-update.png)
+
+    * Error handling if a user tries to withdraw an amount less than or equal to zero, or withdraw more than the current available balance.
+
+    ![withdraw input error handling](assets/images/withdraw-error-handling.png)
+
+  * **Fund Transfer:** Runs by choosing 4 from the menu,
+
+    * Enables users to transfer money to another account.
+
+    * Successful transfer confirmation message with information about the current balance
+
+    ![]()
+
+    * Validates the recipient account and logs the transfer in both accounts' transaction histories.
+
+    ![]()
+
+    * Error handling if a user tries to transfer an amount less than or equal to zero, or transfer more than the current available balance.
+
+    ![]()
+
+* **Transaction History:** Runs by choosing 5 from the menu,
+
+  * Displays a detailed history of all transactions (deposits, withdrawals, transfers).
+  
+  * Uses the tabulate library to format the history into a readable table.
+
+  ![transaction table](assets/images/transaction.png)
+
+  * If there are no recorded transactions
+
+  ![no transactions found](assets/images/no-transaction.png)
+
+* **Accessible menu after all operations:** The menu becomes available after each operation is done successfully, allowing the user to perform different operations during their login time.
+
+![]()
+
+* **Data Storage:** Utilizes Google Sheets as a cloud-based storage for user details and transaction records.
+
+* **Log Out:** Runs by choosing 6 from the menu,
+
+  * Logs the user out of the system securely, with an ending message.
+
+
+
+
+
+ 
 
 
 
