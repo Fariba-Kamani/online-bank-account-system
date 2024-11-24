@@ -136,34 +136,65 @@ Python
 
   * **Personal ID and PIN code login:** Allows users to log in securely with their personal ID and PIN code.
 
-  ![Personal ID  login]()
-  ![PIN code login]()
+  ![Personal ID  login](assets/images/personal-id-login.png)
+  ![PIN code login](assets/images/pin-code-login.png)
 
   * **Login input error handling:** Validates the user login inputs to ensure they only include digits and are of a certain length.
 
-  ![Login inputs error handling personal ID]()
+  ![Login inputs error handling personal ID](assets/images/error-handling-personal-id.png)
 
-  ![Login inputs error handling  PIN code]()
+  ![Login inputs error handling PIN code](assets/images/error-handling-pin-code.png)
 
   * **Credential validation:**
 
     * Confirms whether the user has an account or not. 
 
-      * If the account doesn't exist: It informs the user and user is offered to create a new account.(See the image under [Account Creation](#account-creation))
+      * If the account doesn't exist, the user is informed and offered to create a new account.(See the image under [Account Creation](#account-creation))
 
-      * If the account is found: The user successfully logs in. (See the image under [Account Dashboard](#account-dashboard))
+      * If the account is found: 
 
-    * Verifies the input PIN code against the stored PIN code in Google Sheets for the account matched with the inputted personal ID.
+        * Verifies the input PIN code against the stored PIN code in Google Sheets for the account matched with the inputted personal ID.
 
-    ![PIN code error handling](assets/images/pin-code-error-handling.png)
+          * If the PIN code doesn't match, the user is informed and asked to enter the correct PIN code.
+
+          ![PIN code error handling](assets/images/unmatched-pin-code.png)
+
+          * If the PIN code matches, the user successfully logs in. (See the image under [Account Dashboard](#account-dashboard))
+
+* **New Account Creation:** <a id="account-creation"></a>This option is offered if the user's personal ID doesn't exist in Google Sheets. 
+
+![New account creation](assets/images/new-account-creation.png)
+
+  * Enables new users to create an account with personal details and a unique account number and stores the new account information in Google Sheets.
+
+    * User name and surname input
+
+    * Account creation confirmation and new account details
+
+    ![New account creation process](assets/images/new-account-creation-process.png)
+
+    * Error handling: Provides feedback for invalid inputs and prompts users to correct inputs.
+
+    ![New account creation error handling example 1](assets/images/account-creation-error-handling1.png)
+
+    ![New account creation error handling example 2 too short input](assets/images/error-handling-too-short-input.png)
+
+    ![New account creation error handling example 3](assets/images/account-creation-error-handling-example3.png)
+
+    * If the user chooses not to create a new account, the user will be logged out.
+
+    ![New account creation declined by the user](assets/images/user-declines-new-account.png)
 
 * **Account Dashboard:** <a id="account-dashboard"></a>Displays a personal welcome message, including the account holder's name and account number, along with an interactive menu for account actions when the user successfully logs in.
 
 ![Account dashboard](assets/images/account-dashboard.png)
 
-* **Account Creation:** <a id="account-creation"></a>This option is offered if the user's personal ID doesn't exist in Google Sheets. 
 
-![Account existence validation](assets/images/account-exist-validation.png)
+
+
+    
+
+
 
 #### Future implementations
 

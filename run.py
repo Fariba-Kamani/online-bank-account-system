@@ -45,7 +45,7 @@ class BankAccount:
             menu_options = [[1, "Check balance"], [2, "Deposit"], [3, "Withdrawal"], [4, "Transfer"], [5, "Transactions history"], [6, "Log out"]]
             headers = ["Press", "Action"]
             print(tabulate(menu_options, headers=headers, tablefmt="pretty"))
-            menu_response = input("Select a number from the menu above (1-6):").strip()
+            menu_response = input("Select a number from the menu above (1-6):\n").strip()
             print()
             if menu_response == "1":
                 self.check_balance()
