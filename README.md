@@ -237,23 +237,23 @@ Python
 
     * Successful transfer confirmation message with information about the current balance
 
-    ![]()
+      ![successful transfer confirmation](assets/images/successful-transfer.png)
 
     * Validates the recipient account
 
-    ![transfer validation error in case the given account doesn't axist]()
+      ![transfer validation error in case the given account doesn't axist](assets/images/transfer-validation-error-account-doesnt-exist.png)
 
-    ![Transfer validation error in case the user has inputted their own account](assets/images/transfer-validation-error-to-their-own-account.png)
+      ![Transfer validation error in case the user has inputted their own account](assets/images/transfer-validation-error-to-their-own-account.png)
+
+        * In the case that the inputted account doesn't exist, the user is given the option to either try again or go back to the main menu.
 
     * Logs the transfer in both accounts' transaction histories.
 
-    ![transfer transaction Google Sheets]()
+      ![transfer transaction Google Sheets](assets/images/transfer-transaction-google-sheets.png)
 
     * Error handling if a user tries to transfer an amount less than or equal to zero, or if the user tries to transfer more than the current available balance.
 
-    ![transfer input error handling example 1]()
-
-    ![transfer input error handling example 2]()
+      ![transfer input error handling example](assets/images/transfer-input-error-handling.png)
 
 * **Transaction History:** Runs by choosing 5 from the menu,
 
@@ -269,32 +269,18 @@ Python
 
 * **Accessible menu after all operations:** The menu becomes available after each operation is done successfully, allowing the user to perform different operations during their login time.
 
-![]()
-
 * **Data Storage:** Utilizes Google Sheets as a cloud-based storage for user details and transaction records.
 
 * **Log Out:** Runs by choosing 6 from the menu,
 
   * Logs the user out of the system securely, with an ending message.
 
-
-
-
-
- 
-
-
-
-
-    
-
-
+    ![log out](assets/images/log-out.png)    
 
 #### Future implementations
 
  * Add multi-currency support.
  * Implement email or SMS notifications for transactions.
- * Deploy the project as a web-based application.
  
 - - -
 ## Deployment & Local Development
