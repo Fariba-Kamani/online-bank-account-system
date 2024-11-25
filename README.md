@@ -239,13 +239,21 @@ Python
 
     ![]()
 
-    * Validates the recipient account and logs the transfer in both accounts' transaction histories.
+    * Validates the recipient account
 
-    ![]()
+    ![transfer validation error in case the given account doesn't axist]()
 
-    * Error handling if a user tries to transfer an amount less than or equal to zero, or transfer more than the current available balance.
+    ![Transfer validation error in case the user has inputted their own account](assets/images/transfer-validation-error-to-their-own-account.png)
 
-    ![]()
+    * Logs the transfer in both accounts' transaction histories.
+
+    ![transfer transaction Google Sheets]()
+
+    * Error handling if a user tries to transfer an amount less than or equal to zero, or if the user tries to transfer more than the current available balance.
+
+    ![transfer input error handling example 1]()
+
+    ![transfer input error handling example 2]()
 
 * **Transaction History:** Runs by choosing 5 from the menu,
 

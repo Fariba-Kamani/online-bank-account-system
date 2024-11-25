@@ -141,15 +141,16 @@ class BankAccount:
                 continue
             matched_cell = user_details.find(transfer_account)    
             if not matched_cell:
-                print("This account doesn't exist. To try again press 1, to go back to menu press 2.")
-                response = input("Please enter your selection (1-2):\n").strip()
-                if response == "1":
-                    continue     
-                elif response == "2":
-                    return None
-                else:
-                     print("Invalid selection!")
-                     continue
+                print("This account doesn't exist.")
+                while True:
+                    response = input("To try again press 1, to go back to menu press 2. Please enter your selection (1-2):\n").strip()
+                    if response == "1":
+                        break     
+                    elif response == "2":
+                        return None
+                    else:
+                        print("Invalid selection!")
+                        continue
             else:
                 # Valid account found
                 break
