@@ -84,15 +84,64 @@ Testing was ongoing throughout the entire project development, and all detected 
   * Result: As expected, with the exception being during the creation of a new account for a justified reason. 
 
 * **Instant confirmation of transactions or other actions done.**
+  * Testing Steps:
+    * Performed deposits, withdrawals, and transfers.
+    * Tested invalid transactions, such as exceeding the balance or entering incorrect inputs.
+  * Expected Outcomes:
+    * Confirmation messages appear instantly after actions.
+    * Account balances and transaction history update immediately.
+    * Error messages are clear and precise for invalid actions.
+  * Result: As expected.
 
 #### Testing Site Owner Goals
 
-* To reduce the workload by automating tasks and actions that do not require personal involvement.
-* To keep their customers more satisfied by speeding up tasks and procedures that can be performed independently and without the involvement of personnel. 
-* To handle issues if the user enters unauthorized inputs or attempts to perform unauthorized transactions.
-* To ensure the platform is secure and reliable by protecting clients' sensitive information.
+* **To reduce the workload by automating tasks and actions that do not require personal involvement.**
+  * Testing Steps:
+    * Tested the system’s ability to generate automatic transaction logs and perform operations such as deposit, withdrawal, transfer or create a new account.
+    * Verified the automation of notifications (e.g., transaction confirmations, balance updates) without manual intervention.
+  * Expected Outcomes:
+    * Routine tasks (e.g., logs, and notifications) are fully automated.
+    * No manual input required for standard system functions.
+  * Result: As expected.
+
+* **To keep their customers more satisfied by speeding up tasks and procedures that can be performed independently and without the involvement of personnel.** 
+  * Testing Steps:
+    * Measured response times for tasks like logging in, checking balances, and performing transactions.
+    * Ensured minimal steps are required for common actions, like deposits and transfers.
+  * Expected Outcomes:
+    * All tasks are completed quickly
+    * Steps for performing bank operations are simple and minimal.
+  * Result: As expected.
+
+* **To handle issues if the user enters unauthorized inputs or attempts to perform unauthorized transactions.**
+  * Testing Steps:
+    * Tested invalid data inputs (e.g., non-numeric amounts, special characters) and unauthorized actions (e.g., withdrawing more than available funds).
+    * Simulated unauthorized access attempts, like incorrect login credentials or accessing restricted data.
+  * Expected Outcomes:
+    * Invalid inputs are rejected with clear error messages
+    * Unauthorized transactions and access attempts are not allowed.
+  Result: As expected.
+
+* **To ensure the platform is secure and reliable by protecting clients' sensitive information.**
+  * Overlapping with the user's goal: Ensure sensitive information (personal ID, PIN, account details) is protected. This has been already tested in the user goals section.
 
 #### Testing Google Sheets
+
+Testing the integration with Google Sheets for this project involved ensuring that the Sheets API functions correctly and that data is accurately read from and written to Google Sheets. 
+
+Connectivity with Google Sheets was verified by fetching and displaying data from the worksheets (user_details and transactions), ensuring that the system connects to the correct Google Sheets file without errors.
+
+User data retrieval has been validated by attempting to log in with valid credentials and checking if the correct row is retrieved from the "user_details" worksheet. Additionally, invalid inputs (e.g., incorrect personal ID or PIN) were simulated to verify error handling. The system retrieved the correct data for valid inputs, while invalid inputs returned meaningful error messages without crashing the system.
+
+Data writing to Google Sheets was tested by performing operations like deposits, withdrawals, and transfers to verify if The balance is updated in the correct cell in the "user_details" worksheet, and new rows are appended to the "transactions" worksheet with accurate details. Balance updates correctly and immediately after each transaction. Transactions are logged accurately with proper timestamps.
+
+To verify transaction history I have checked the "transactions" worksheet for accounts with and without transaction history, and tested if transaction history is displayed correctly in the system interface. Transaction history is retrieved and displayed accurately for relevant accounts. Accounts with no transaction history display appropriate messages (e.g., "No transactions found").
+
+Edge cases and invalid inputs have been tested by entering invalid account numbers or transaction amounts and ensured the system handles them properly with clear error messages.
+
+Response times for reading and writing to the Sheets under load are generally fast, except for retrieving a user's transaction history when a long list of transactions is recorded in the "transactions" worksheet. For accounts like "1002," which have a large number of transactions saved, this can take up to 10 seconds.
+
+Finally, I have ensured that the creds.json file is included in the .gitignore file and is inaccessible to unauthorized users.
 
 #### The Full Testing
 
