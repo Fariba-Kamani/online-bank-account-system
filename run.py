@@ -15,20 +15,26 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
     ]
+# Authentication setup using service account credentials
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+# Opens the Google Sheet named "Bank_account"
 SHEET = GSPREAD_CLIENT.open('Bank_account')
 
 
 class BankAccount:
     """
-    Bank account class
+    A class representing a user's bank account.
+    Handles account operations such as deposit, withdrawal,
+    transfers, and viewing transaction history.
     """
 
     def __init__(self, first_name, surname, pin_code, id_number,
                  account_number, row_number, balance=0):
-        # Creates an instance of bank account
+        """
+        Initializes a BankAccount instance with user details.
+        """
         self.first_name = first_name
         self.surname = surname
         self.pin_code = pin_code
@@ -39,11 +45,17 @@ class BankAccount:
         self.transactions = []
 
     def welcome_message(self):
+        """
+        Displays a welcome message and the main menu for the user.
+        """
         print(f"Welcome to your account {self.first_name} {self.surname}!")
         print(f"Account number: {self.account_number}\n")
         self.show_menu()
 
     def show_menu(self):
+        """
+        Displays the menu options and handles user choices.
+        """
         while True:
             menu_options = [
                 [1, "Check balance"],
@@ -77,9 +89,16 @@ class BankAccount:
                 print("Invalid value! Please choose a value from the menu.")
 
     def check_balance(self):
+        """
+        Displays the current account balance.
+        """
         print(f"Your balance is {self.balance:.2f} sek.\n")
 
     def deposit(self):
+        """
+        Handles depositing money into the user's account.
+        Ensures valid input and updates the account and transaction records.
+        """
         try:
             amount = float(
                 input(
@@ -116,6 +135,11 @@ class BankAccount:
             self.deposit()
 
     def withdraw(self):
+        """
+        Handles withdrawal of money from the user's account.
+        Ensures that the user has sufficient balance,
+        and updates records.
+        """
         try:
             amount = float(
                 input(
@@ -155,15 +179,30 @@ class BankAccount:
             self.withdraw()
 
     def update_transactions(self):
+        """
+        Updates the transaction record in the
+        Google Sheets 'transactions' worksheet
+        by appending the latest transaction.
+        """
         last_transaction = self.transactions[-1]
         SHEET.worksheet("transactions").append_row(last_transaction)
 
     def update_balance(self):
+        """
+        Updates the user's current balance in the Google Sheets
+        'user_details' worksheet.
+        """
         SHEET.worksheet("user_details").update_cell(
             self.row_number, 6, f"{self.balance:.2f}"
         )
 
     def transactions_history(self):
+        """
+        Fetches and displays the transaction
+        history for the user's account.
+        Retrieves data from the Google Sheets
+        'transactions' worksheet.
+        """
         transactions_worksheet = SHEET.worksheet("transactions")
         matched_cells = [
             cell for cell in transactions_worksheet.findall(
@@ -177,6 +216,7 @@ class BankAccount:
                 f" {self.account_number}.\n"
             )
             return
+        print("Retrieving your transaction history. Please wait...")
         transactions_history_list = []
         for cell in matched_cells:
             data = transactions_worksheet.row_values(cell.row)
@@ -198,6 +238,14 @@ class BankAccount:
         )
 
     def transfer_validation(self):
+        """
+        Validates the transfer process:
+        - Checks if the recipient account exists.
+        - Ensures the transfer amount is valid,
+        and within the user's balance.
+        Returns the recipient account details,
+        and transfer amount if valid.
+        """
         user_details = SHEET.worksheet("user_details")
         while True:
             transfer_account = input(
@@ -252,6 +300,11 @@ class BankAccount:
         return [transfer_account, transfer_amount, matched_cell]
 
     def transfer(self):
+        """
+        Handles the money transfer process:
+        - Validates the recipient account and transfer amount.
+        - Updates both the sender's and recipient's account details.
+        """
         inputs = self.transfer_validation()
         # Check if transfer_validation returned None
         # (user opted to go back to menu)
@@ -303,6 +356,9 @@ class BankAccount:
         target_account.update_balance()
 
     def log_out(self):
+        """
+        Logs the user out and displays a farewell message.
+        """
         print(
             "Thanks for using your online bank account service.\n"
             "Looking forward to seeing you soon."
@@ -312,9 +368,14 @@ class BankAccount:
 class NewAccount(BankAccount):
     """
     Creates a new account for a user if they don’t already have one.
+    Inherits from the BankAccount class.
     """
 
     def __init__(self, pin_code, id_number):
+        """
+        Initializes a new account, gathers user details,
+        and validates inputs.
+        """
         while True:
             name = input(
                 "Please enter your first name here:\n"
@@ -368,6 +429,10 @@ class NewAccount(BankAccount):
         return True
 
     def add_new_account(self):
+        """
+        Appends the new account details to the
+        Google Sheets 'user_details' worksheet.
+        """
         new_account_data = [
             self.name,
             self.surname,
@@ -379,6 +444,9 @@ class NewAccount(BankAccount):
         SHEET.worksheet("user_details").append_row(new_account_data)
 
     def confirmation_new_account(self):
+        """
+        Displays confirmation details of the newly created account.
+        """
         print(
             "Congratulations! A new account has been successfully created.\n"
             f"{self.name} {self.surname}\n"
@@ -395,14 +463,13 @@ class NewAccount(BankAccount):
 
 def get_login_inputs():
     """
-    Checks if the user has entered exactly 10 digits for personal ID number,
-    and exactly 6 digits for the PIN code.
-    Checks if the user has an account,
-    and if they have entered the right PIN code.
-    If the account is found but user has entered the wrong PIN code,
-    asks for the correct PIN code.
-    If the user doesn't have an account
-    asks if the they want to create an account.
+    Handles user login by:
+    - Checking if the user enters a valid personal ID number (10 digits).
+    - Checking if the user enters a valid PIN code (6 digits).
+    - Validating the existence of the user's account.
+    - Ensuring that the entered PIN matches the account details.
+    - Allowing the user to create a new account,
+    if they do not already have one.
     """
     print("_______________________WELCOME!_______________________\n")
     print(" Please enter your personal ID number and your PIN code to login.")
@@ -412,25 +479,41 @@ def get_login_inputs():
     )
     print(" -PIN code should be exactly 6 digits. Example: 123456")
     print("______________________________________________________")
+    # Prompt for personal ID number until valid input is provided
     while True:
         personal_ID = input("Enter your personal ID number here, 10 digits:\n")
         print()
         if login_validation(personal_ID, "personal ID number", 10):
             break
+    # Prompt for PIN code until valid input is provided
     while True:
         pin_code = input("Enter your PIN code here, 6 digits:\n")
         print()
         if login_validation(pin_code, "PIN code", 6):
             break
+    # Validate the user's account credentials
     account_validation(personal_ID, pin_code)
 
 
 def login_validation(login_input, string, length):
+    """
+    Validates login input (personal ID or PIN code):
+    - Ensures the input consists only of digits.
+    - Ensures the input is of the specified length.
+    Arguments:
+    - login_input: The user's input (personal ID or PIN code)
+    - string: The name of the field being validated
+    ("personal ID" or "PIN code")
+    - length: The required length of the input
+    Returns True if the input is valid, and False otherwise.
+    """
     try:
+        # Check if the input contains only digits
         if not login_input.isdigit():
             raise ValueError(
                 f"Your {string} should only include digits!"
             )
+        # Check if the input is the required length
         elif len(login_input) != length:
             raise ValueError(
                 f"Your {string} should be exactly {length} digits."
@@ -442,10 +525,24 @@ def login_validation(login_input, string, length):
 
 
 def account_validation(personal_ID, pin_code):
+    """
+    Validates the user's account based on
+    their personal ID and PIN code:
+    - Checks if the account exists in the system.
+    - If the account exists, verifies the PIN code.
+    - Allows the user to create a new account if none exists.
+    - Handles incorrect PIN entries and re-prompts for the correct PIN.
+    Arguments:
+    The user's personal ID number,
+    and the user's PIN code.
+
+    """
     user_details = SHEET.worksheet('user_details')
     try:
+        # Search for the user's personal ID in the Google Sheets database
         cell = user_details.find(personal_ID)
         if cell is None:
+            # If the account doesn't exist, prompt to create a new account
             while True:
                 try:
                     print(
@@ -455,9 +552,11 @@ def account_validation(personal_ID, pin_code):
                         f"PIN code {pin_code}?"
                     )
                     response = input("(yes/no)\n").strip().lower()
+                    # Create a new account if the user agrees
                     if response == "yes":
                         NewAccount(pin_code, personal_ID)
                         return
+                    # Log out if the user opts not to create an account
                     elif response == "no":
                         temp_account = BankAccount("", "", "", "", "", 0)
                         temp_account.log_out()
@@ -470,21 +569,33 @@ def account_validation(personal_ID, pin_code):
                 except ValueError as e:
                     print(e)
         else:
+            # If the account exists, verify the PIN code
             data = user_details.row_values(cell.row)
             row_number = cell.row
             if data[2] == pin_code:
+                # Create a BankAccount object and display the welcome message
                 costumer = BankAccount(
                     data[0], data[1], data[2],
                     data[3], data[4], row_number, float(data[5])
                 )
                 costumer.welcome_message()
             else:
+                # If the PIN is incorrect, prompt the user to enter it again
                 print("Wrong PIN code.")
                 pin_code = input("Please enter the correct PIN code:\n")
                 print()
                 account_validation(personal_ID, pin_code)
+    # Handle any unexpected errors during account validation
     except gspread.exceptions.GSpreadException as e:
         print(f"An unexpected error occurred: {e}")
 
 
-get_login_inputs()
+def main():
+    """
+    Start the login process.
+    """
+    get_login_inputs()
+
+
+# Start the login process by calling the main function
+main()
