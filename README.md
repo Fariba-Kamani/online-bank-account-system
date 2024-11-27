@@ -112,9 +112,11 @@ The project is connected to Google Sheets API for real-time data storage and dat
 
 * [Google Cloud Platform](https://console.cloud.google.com/) - A platform for activating the API credentials
 
-* [Python syntax checker](https://extendsclass.com/python-tester.html) - to validate the Python code.
+* [Code Institute CI Python Linter](https://pep8ci.herokuapp.com/) - to validate the Python code.
 
 * [Lucidchart](https://www.lucidchart.com/) - To create flowchart.
+
+* Microsoft Photos - To edit the images used in the README.md file.
 
 ##### Languages Used
 
@@ -287,7 +289,7 @@ Python
 
 ### Deployment
 
-This project was deployed using Code Institute's moock terminal for Heroku. The Application has been deployed from GitHub to Heroku by following the steps below:
+This project was deployed using Code Institute's mock terminal for Heroku. The Application has been deployed from GitHub to Heroku by following the steps below:
 
 1. Log in to your account at heroku.com
 2. Create a new app, add a unique app name (for example online-bank-account-system) and then choose your region

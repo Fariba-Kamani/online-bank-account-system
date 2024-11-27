@@ -23,6 +23,8 @@ Testing was ongoing throughout the entire project development, and all detected 
 
 #### PEP8 Validatior
 
+No errors were returned from [Code Institute CI Python Linter](https://pep8ci.herokuapp.com/).
+
 ### Manual Testing
 
 #### Testing User Goals
