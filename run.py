@@ -216,7 +216,7 @@ class BankAccount:
                 f" {self.account_number}.\n"
             )
             return
-        print("Retrieving your transaction history. Please wait...")
+        print("Retrieving your transaction history. This may take a moment...")
         transactions_history_list = []
         for cell in matched_cells:
             data = transactions_worksheet.row_values(cell.row)

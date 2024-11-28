@@ -259,11 +259,13 @@ Python
 
 * **Transaction History:** Runs by choosing 5 from the menu,
 
+  * Displays a message informing the user that their transactions are being retrieved, provided that transactions are recorded for the user.
+
   * Displays a detailed history of all transactions (deposits, withdrawals, transfers).
   
   * Uses the tabulate library to format the history into a readable table.
 
-  ![transaction table](assets/images/transaction.png)
+  ![transaction table]()
 
   * If there are no recorded transactions
 
@@ -331,6 +333,14 @@ Please refer to [TESTING.md](TESTING.md) file for all testing carried out.
 
 ### Solved Bugs
 
+* One of the issues I encountered during the development of the project was with the name input validation for creating a new account. Despite showing a validation error message, the original code was still allowing non-alphabetic characters to pass. The issue in the original code was that despite showing a validation error message for incorrect inputs, the loop would continue due to `condition = True` being set after the except block. This means that even after encountering invalid inputs, the loop would restart immediately without allowing for proper input correction. I resolved this problem by simplifying the loop using `while True`, which ensures that the loop continues until the `break` statement is reached. I added better input validation checks directly within the loop and used `continue` statements to allow for immediate re-prompting of inputs if errors are found, without prematurely breaking the loop. This way, the user's name and surname will only be updated, and the loop will be broken, once all validation checks are passed.
+
+* Another issue was that the `transactions_history` method was printing the same transaction twice. The bug was caused by the initial implementation, which did not account for the column in which the account number was found. As a result, it was finding two matches for the account number in the "transactions" worksheet columns, leading to duplicate entries being appended to the transaction history list. I fixed this problem by filtering `matched_cells` to include only those cells where the account number is found specifically in the first column `(col == 1)`. This ensures that each transaction is counted only once.
+
+* The initial implementation of the `transfer` method was causing an issue by not handling the situation where the account number entered by the user did not exist in the worksheet. This led the program to try to access `.row` on a `None` object. In the fixed code, I use a loop and additional checks to ensure that the user input is handled properly. The transfer operation only proceeds if a valid account is found, ensuring that `matched_cell` is never `None` when attempting to access `.row`.
+
+* Another noteworthy bug occurred due to the initial implementation of the `transfer` method not separating validation handling from the actual transfer logic. This led to the reappearance of transfer input questions after completing a transfer or the reappearance of the menu after logging out. The validation and transfer operations were intermingled, causing the method to loop incorrectly and present options or prompts multiple times. The `transfer` method combined both the validation of the account number and the execution of the transfer in a single method. This led to confusion in the control flow, where the same prompts could reappear after the transfer was completed or after the user logged out. The solution involved separating the validation handling into a distinct method called `transfer_validation()`.
+
 ### Known Bugs
 
   There are no known or unsolved bugs left in the program.
@@ -341,9 +351,20 @@ Please refer to [TESTING.md](TESTING.md) file for all testing carried out.
 
 ### Code Used
 
-Throughout the entire project development, I utilized the Code Institute course materials for HTML, CSS, and JavaScript. I followed the tutorials for the Love Running and Love Maths walkthrough projects to set up and start my project properly. The links from Code Institute that I relied on through out my project are as follow:
+Throughout the entire project development, I utilized the Code Institute course materials for Python. I followed the tutorials for the Love Sandwiches walkthrough project to wire up APIs, confirm access to Google Sheets, and start my project. I also used Code Institute's mock terminal for Heroku for deployment. The links from Code Institute and external resources that I relied on throughout my project are as follows:
+
+* [Activating our API credentials](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+LS101+1/courseware/293ee9d8ff3542d3b877137ed81b9a5b/071036790a5642f9a6f004f9888b6a45/?child=last) - For activating the projects API credentials.
+* [Getting Our Workspace Set Up](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+LS101+1/courseware/293ee9d8ff3542d3b877137ed81b9a5b/071036790a5642f9a6f004f9888b6a45/?child=last) - For adding the credentials file `creds.json` to the project and connect my Google Sheets and .gitignore my `creds.json`. 
+* [Connecting to our API with Python](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+LS101+1/courseware/293ee9d8ff3542d3b877137ed81b9a5b/071036790a5642f9a6f004f9888b6a45/?child=last) - For importing gspread and google.oauth2.service_account, add SCOPE and Authentication setup.
+* [Code Institute/Python Essentials/Classes and Object Oriented Concepts]() - For learning about using classes and OOP in my project.
+* [Built-in Functions & Tools/datetime](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+CPP_06_20+3/courseware/272f493b4d57445fbd634e7ceca3a98c/4ab3e01af44f4bf2828739c1d0591a45/) - For importing and use of datetime for recording the transactions with a proper timestamps.
+* [Validating our data part1 & part 2](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+LS101+1/courseware/293ee9d8ff3542d3b877137ed81b9a5b/c92755338ef548f28cc31a7c3d5bfb46/?child=last) & [Creating our user request loop](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+LS101+1/courseware/293ee9d8ff3542d3b877137ed81b9a5b/c92755338ef548f28cc31a7c3d5bfb46/?child=last) - For developing input error handling that repeatedly prompts the user to enter valid input until the input is validated.
+* [Python-tabulate](https://github.com/astanin/python-tabulate) - For learning about tabulate library and using it in my project for displaying the menu and the user's transaction history.
+* Love Sandwiches & [gspread](https://github.com/burnash/gspread) - For learning how to get cell values, all values from a row or a column, find a specific cell, and use other gspread library functions. These tools have been instrumental in my project for retrieving data from and updating my Google Sheets.
 
 ### Content
+
+For documentation and creating my README.md file I have taken inspiration from the sample README.md file that my mentor shared with me [corri-construction-p3](https://github.com/todiane/corri-construction-p3/blob/main/README.md).
 
 All other technologies used during the development of this project are mentioned and credited in the [technologies used](#technologies-used) section.
 
@@ -351,6 +372,6 @@ All other technologies used during the development of this project are mentioned
 
 I would like to acknowledge
 
-* My Code Institute mentor, Jubril Akolade, for reviewing my project and inspiring me to improve my website.
+* My Code Institute mentor, Jubril Akolade, for inspiring me to choose this project as well as reviewing my project. His meticulous reviews have significantly enhanced its quality. Jubril's insistence on validating each user's input individually, rather than re-prompting for all inputs upon a single validation error, has pushed me to refine and improve my project, ensuring a smoother user experience.
 * The Code Institute tutor team, who were available and guided me whenever I was stuck troubleshooting issues during the development of my projects.
 * My partner and friends, who took the time to test my website on their devices and provided constructive feedback.
