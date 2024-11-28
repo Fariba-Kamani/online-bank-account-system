@@ -1,6 +1,6 @@
 # Online Bank Account System
 
-![Online Bank Account System](assets/images/portal-image.jpg)
+![Online Bank Account System](assets/images/online-bank-account-system.png)
 
 Visit the deployed site: [Online Bank Account System](https://online-bank-account-system-0e5e73e47365.herokuapp.com/)
 
@@ -75,7 +75,7 @@ To describe the pre-development phase of this project, I have included the follo
 
 #### Flowchart
    
-![The flowchart](assets/images/flow-chart.png)
+  ![The flowchart](assets/images/flow-chart.png)
 
 ### Development
 
@@ -95,8 +95,9 @@ The project is connected to Google Sheets API for real-time data storage and dat
 
 * Transaction data is stored in a separate worksheet (transactions) for detailed transaction history.
 
-![user-details worksheet](assets/images/user-details-work-sheet.png)
-![transactions worksheet](assets/images/transactions-work-sheet.png)
+  ![user-details worksheet](assets/images/user-details-work-sheet.png)
+
+  ![transactions worksheet](assets/images/transactions-work-sheet.png)
 
 #### Technologies Used
 
@@ -138,14 +139,15 @@ Python
 
   * **Personal ID and PIN code login:** Allows users to log in securely with their personal ID and PIN code.
 
-  ![Personal ID  login](assets/images/personal-id-login.png)
-  ![PIN code login](assets/images/pin-code-login.png)
+    ![Personal ID  login](assets/images/personal-id-login.png)
+
+    ![PIN code login](assets/images/pin-code-login.png)
 
   * **Login input error handling:** Validates the user login inputs to ensure they only include digits and are of a certain length.
 
-  ![Login input error handling personal ID](assets/images/error-handling-personal-id.png)
+    ![Login input error handling personal ID](assets/images/error-handling-personal-id.png)
 
-  ![Login input error handling PIN code](assets/images/error-handling-pin-code.png)
+    ![Login input error handling PIN code](assets/images/error-handling-pin-code.png)
 
   * **Credential validation:**
 
@@ -159,13 +161,13 @@ Python
 
           * If the PIN code doesn't match, the user is informed and asked to enter the correct PIN code.
 
-          ![PIN code input error handling](assets/images/unmatched-pin-code.png)
+            ![PIN code input error handling](assets/images/unmatched-pin-code.png)
 
           * If the PIN code matches, the user successfully logs in. (See the image under [Account Dashboard](#account-dashboard))
 
 * **New Account Creation:** <a id="account-creation"></a>This option is offered if the user's personal ID doesn't exist in Google Sheets. 
 
-![New account creation](assets/images/new-account-creation.png)
+  ![New account creation](assets/images/new-account-creation.png)
 
   * Enables new users to create an account with personal details and a unique account number and stores the new account information in Google Sheets.
 
@@ -173,19 +175,19 @@ Python
 
     * Account creation confirmation and new account details
 
-    ![New account creation process](assets/images/new-account-creation-process.png)
+      ![New account creation process](assets/images/new-account-creation-process.png)
 
     * Error handling: Provides feedback for invalid inputs and prompts users to correct inputs.
 
-    ![New account creation input error handling example 1](assets/images/account-creation-error-handling1.png)
+      ![New account creation input error handling example 1](assets/images/account-creation-error-handling1.png)
 
-    ![New account creation input error handling example 2 too short input](assets/images/error-handling-too-short-input.png)
+      ![New account creation input error handling example 2 too short input](assets/images/error-handling-too-short-input.png)
 
-    ![New account creation input error handling example 3](assets/images/account-creation-error-handling-example3.png)
+      ![New account creation input error handling example 3](assets/images/account-creation-error-handling-example3.png)
 
     * If the user chooses not to create a new account, the user will be logged out.
 
-    ![New account creation declined by the user](assets/images/user-declines-new-account.png)
+      ![New account creation declined by the user](assets/images/user-declines-new-account.png)
 
 * **Account Dashboard:** <a id="account-dashboard"></a>Displays a personal welcome message, including the account holder's name and account number, along with an interactive menu for account actions when the user successfully logs in.
 
@@ -193,13 +195,13 @@ Python
 
   * The menu input error handling
 
-  ![The menu input error handling](assets/images/menu-error-handling.png)
+    ![The menu input error handling](assets/images/menu-error-handling.png)
 
 * **The Bank Operations:**
 
   * **Check Balance:** Runs by choosing 1 from the menu and allows users to view their current account balance. 
 
-    ![check balance](assets/images/check-balance.png)
+      ![check balance](assets/images/check-balance.png)
   
   * **Deposit Funds:** Runs by choosing 2 from the menu,
 
@@ -207,15 +209,15 @@ Python
 
     * Successful deposit confirmation message with information about the current balance
 
-    ![successful deposit confirmation](assets/images/successful-deposit.png)
+      ![successful deposit confirmation](assets/images/successful-deposit.png)
 
     * Error handling if a user tries to deposit an amount less than or equal to zero, or deposit more than 5000 SEK.
 
-    ![deposit input error handling](assets/images/deposit-error-handling.png) 
+      ![deposit input error handling](assets/images/deposit-error-handling.png) 
 
     * Updates the account balance and logs the transaction details in Google Sheets.
 
-    ![deposit transaction update](assets/images/deposit-transaction-update.png)
+      ![deposit transaction update](assets/images/deposit-transaction-update.png)
 
   * **Withdraw Funds:** Runs by choosing 3 from the menu,
 
@@ -223,15 +225,15 @@ Python
 
     * Successful withdrawal confirmation message with information about the current balance
 
-    ![successful withdrawal confirmation](assets/images/successful-withdrawal.png)
+      ![successful withdrawal confirmation](assets/images/successful-withdrawal.png)
 
     * Updates the balance and logs the transaction in Google Sheets.
 
-    ![withdrawal transaction update](assets/images/withdrawal-transaction-update.png)
+      ![withdrawal transaction update](assets/images/withdrawal-transaction-update.png)
 
     * Error handling if a user tries to withdraw an amount less than or equal to zero, or withdraw more than the current available balance.
 
-    ![withdraw input error handling](assets/images/withdraw-error-handling.png)
+      ![withdraw input error handling](assets/images/withdraw-error-handling.png)
 
   * **Fund Transfer:** Runs by choosing 4 from the menu,
 
@@ -261,15 +263,17 @@ Python
 
   * Displays a message informing the user that their transactions are being retrieved, provided that transactions are recorded for the user.
 
+    ![transaction retrieving message](assets/images/transaction-retrieving-message.png)
+
   * Displays a detailed history of all transactions (deposits, withdrawals, transfers).
   
   * Uses the tabulate library to format the history into a readable table.
 
-  ![transaction table]()
+    ![transaction table](assets/images/transaction-table.png)
 
   * If there are no recorded transactions
 
-  ![no transactions found](assets/images/no-transaction.png)
+    ![no transactions found](assets/images/no-transaction.png)
 
 * **Accessible menu after all operations:** The menu becomes available after each operation is done successfully, allowing the user to perform different operations during their login time.
 

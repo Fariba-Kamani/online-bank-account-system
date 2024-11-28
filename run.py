@@ -62,7 +62,7 @@ class BankAccount:
                 [2, "Deposit"],
                 [3, "Withdrawal"],
                 [4, "Transfer"],
-                [5, "Transactions history"],
+                [5, "Transaction history"],
                 [6, "Log out"]
             ]
             headers = ["Press", "Action"]
