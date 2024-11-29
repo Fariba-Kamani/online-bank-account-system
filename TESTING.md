@@ -21,7 +21,7 @@ Testing was ongoing throughout the entire project development, and all detected 
 
 ### Automated Testing
 
-#### PEP8 Validatior
+#### PEP8 Validator
 
 No errors were returned from [Code Institute CI Python Linter](https://pep8ci.herokuapp.com/).
 
@@ -37,7 +37,7 @@ No errors were returned from [Code Institute CI Python Linter](https://pep8ci.he
     * Measured the response time for logging in.
   * Expected Outcomes:
     * User is granted access only with correct credentials.
-    * Error messages are clear and specific (e.g., "Incorrect PIN or invalid ID").
+    * Error messages are clear and specific.
     * Response time for login is under 2 seconds.
     * No data is exposed during login.
   * Result: As expected.
@@ -62,7 +62,7 @@ No errors were returned from [Code Institute CI Python Linter](https://pep8ci.he
     * No bugs or crashes while navigating.
   * Result: As expected.
 
-* **To be able to view balance, transactions history and perform transactions (deposit, withdraw and transfer)**
+* **To be able to view balance, transaction history and perform transactions (deposit, withdraw and transfer)**
   * Testing Steps:
     * Checked account balance for accuracy after deposits, withdrawals, and transfers.
     * Viewed transaction history to ensure all actions are logged with accurate timestamps and details.
@@ -79,7 +79,7 @@ No errors were returned from [Code Institute CI Python Linter](https://pep8ci.he
     * Simulate unauthorized access attempts.
     * Tested for user information exposure
   * Expected Outcomes:
-    * Sensitive information is encrypted or secured properly.
+    * Sensitive information cannot be accessed through the code.
     * Unauthorized access attempts are blocked, and proper logging is implemented.
     * User information, including the personal ID number and PIN code, is logged to the terminal only during the creation of a new account: once when giving the user the option to create a new account, and once when the account creation has been successfully completed. This allows the user to review the accuracy of their recorded personal details and remember the PIN code needed for future logins.
     * creds.json is .gitignored in the project to prevent private or sensitive information from being exposed on github.
@@ -97,7 +97,7 @@ No errors were returned from [Code Institute CI Python Linter](https://pep8ci.he
 
 #### Testing Site Owner Goals
 
-* **To reduce the workload by automating tasks and actions that do not require personal involvement.**
+* **To reduce the workload by automating tasks and actions that do not require personnel involvement.**
   * Testing Steps:
     * Tested the system’s ability to generate automatic transaction logs and perform operations such as deposit, withdrawal, transfer or create a new account.
     * Verified the automation of notifications (e.g., transaction confirmations, balance updates) without manual intervention.
@@ -118,11 +118,11 @@ No errors were returned from [Code Institute CI Python Linter](https://pep8ci.he
 * **To handle issues if the user enters unauthorized inputs or attempts to perform unauthorized transactions.**
   * Testing Steps:
     * Tested invalid data inputs (e.g., non-numeric amounts, special characters) and unauthorized actions (e.g., withdrawing more than available funds).
-    * Simulated unauthorized access attempts, like incorrect login credentials or accessing restricted data.
+    * Simulated unauthorized access attempts, like incorrect login credentials.
   * Expected Outcomes:
     * Invalid inputs are rejected with clear error messages
-    * Unauthorized transactions and access attempts are not allowed.
-  Result: As expected.
+    * Unauthorized transactions are not allowed.
+  * Result: As expected.
 
 * **To ensure the platform is secure and reliable by protecting clients' sensitive information.**
   * Overlapping with the user's goal: Ensure sensitive information (personal ID, PIN, account details) is protected. This has been already tested in the user goals section.

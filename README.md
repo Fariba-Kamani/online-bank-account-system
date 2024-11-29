@@ -56,13 +56,13 @@ The way the project works can be devided into four phases; user authentication, 
 * To have secure, fast, and reliable login process
 * To have access to their accounts 24/7
 * To have access to smooth navigation, clear instructions and feedbacks while using their online bank account
-* To be able to view balance, transactions history and perform transactions (deposit, withdraw and transfer)
+* To be able to view balance, transaction history and perform transactions (deposit, withdraw and transfer)
 * Ensure sensitive information (personal ID, PIN, account details) is protected.
 * Instant confirmation of transactions or other actions done.
 
 ### Site owner goals
 
-* To reduce the workload by automating tasks and actions that do not require personal involvement.
+* To reduce the workload by automating tasks and actions that do not require personnel involvement.
 * To keep their customers more satisfied by speeding up tasks and procedures that can be performed independently and without the involvement of personnel. 
 * To handle issues if the user enters unauthorized inputs or attempts to perform unauthorized transactions.
 * To ensure the platform is secure and reliable by protecting clients' sensitive information.
@@ -113,6 +113,8 @@ The project is connected to Google Sheets API for real-time data storage and dat
 
 * [Google Cloud Platform](https://console.cloud.google.com/) - A platform for activating the API credentials
 
+* [Google Sheets](https://docs.google.com/spreadsheets/) - To store and manage user data, data retrieval and updates.
+
 * [Code Institute CI Python Linter](https://pep8ci.herokuapp.com/) - to validate the Python code.
 
 * [Lucidchart](https://www.lucidchart.com/) - To create flowchart.
@@ -129,7 +131,7 @@ Python
 
 * google.oauth2.service_account.Credentials: It handles authentication to connect the Python app with the Google Sheets API securely. I have used this library to authenticate and authorize my app to read and write data in Google Sheets.
 
-* datetime: This library which Provides functions for handling date and time has been used to log transaction date and time in the Google Sheets for historical records.
+* datetime: This library which provides functions for handling date and time has been used to log transaction date and time in the Google Sheets for historical records.
 
 * tabulate: I used this library to format and display tabular data as text tables. I chose to display the actions menu and the transaction history in a table format for better readability in the terminal.
 
@@ -153,7 +155,7 @@ Python
 
     * Confirms whether the user has an account or not. 
 
-      * If the account doesn't exist, the user is informed and offered to create a new account.(See the image under [Account Creation](#account-creation))
+      * If the account doesn't exist, the user is informed and offered to create a new account.(See the image under [New Account Creation](#account-creation))
 
       * If the account is found: 
 
@@ -177,7 +179,7 @@ Python
 
       ![New account creation process](assets/images/new-account-creation-process.png)
 
-    * Error handling: Provides feedback for invalid inputs and prompts users to correct inputs.
+    * Error handling: Provides feedback for invalid inputs and prompts users to enter correct inputs.
 
       ![New account creation input error handling example 1](assets/images/account-creation-error-handling1.png)
 
@@ -302,7 +304,7 @@ This project was deployed using Code Institute's mock terminal for Heroku. The A
 3. Click on create app
 4. Go to "Settings"
 5. Under Config Vars add the private API key information using key 'CREDS' and into the value area copy the API key information added to the .json file.  Also add a key 'PORT' and value '8000'.
-6. Add required buildpacks (further dependencies). For this project, set it up so Python will be on top and Node.js on bottom
+6. Add required buildpacks (further dependencies). For this project, set it up so Python will be on top and Node.js at the bottom
 7. Go to "Deploy" and select "GitHub" in "Deployment method"
 8. To connect Heroku app to your Github repository code enter your repository name, click 'Search' and then 'Connect' when it shows below.
 9. Choose the branch you want to build your app from
@@ -361,7 +363,7 @@ Throughout the entire project development, I utilized the Code Institute course 
 * [Getting Our Workspace Set Up](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+LS101+1/courseware/293ee9d8ff3542d3b877137ed81b9a5b/071036790a5642f9a6f004f9888b6a45/?child=last) - For adding the credentials file `creds.json` to the project and connect my Google Sheets and .gitignore my `creds.json`. 
 * [Connecting to our API with Python](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+LS101+1/courseware/293ee9d8ff3542d3b877137ed81b9a5b/071036790a5642f9a6f004f9888b6a45/?child=last) - For importing gspread and google.oauth2.service_account, add SCOPE and Authentication setup.
 * [Code Institute/Python Essentials/Classes and Object Oriented Concepts]() - For learning about using classes and OOP in my project.
-* [Built-in Functions & Tools/datetime](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+CPP_06_20+3/courseware/272f493b4d57445fbd634e7ceca3a98c/4ab3e01af44f4bf2828739c1d0591a45/) - For importing and use of datetime for recording the transactions with a proper timestamps.
+* [Built-in Functions & Tools/datetime](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+CPP_06_20+3/courseware/272f493b4d57445fbd634e7ceca3a98c/4ab3e01af44f4bf2828739c1d0591a45/) - For importing and using datetime to record transactions with proper timestamps.
 * [Validating our data part1 & part 2](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+LS101+1/courseware/293ee9d8ff3542d3b877137ed81b9a5b/c92755338ef548f28cc31a7c3d5bfb46/?child=last) & [Creating our user request loop](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+LS101+1/courseware/293ee9d8ff3542d3b877137ed81b9a5b/c92755338ef548f28cc31a7c3d5bfb46/?child=last) - For developing input error handling that repeatedly prompts the user to enter valid input until the input is validated.
 * [Python-tabulate](https://github.com/astanin/python-tabulate) - For learning about tabulate library and using it in my project for displaying the menu and the user's transaction history.
 * Love Sandwiches & [gspread](https://github.com/burnash/gspread) - For learning how to get cell values, all values from a row or a column, find a specific cell, and use other gspread library functions. These tools have been instrumental in my project for retrieving data from and updating my Google Sheets.
